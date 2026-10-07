@@ -32,9 +32,7 @@ feedberry/
 | _Paula_ | _a definir_ |
 | _Enzo_ | _a definir_ |
 | _Samara_ | _a definir_ |
-| _a definir_ | _a definir_ |
-| _a definir_ | _a definir_ |
-| _a definir_ | _a definir_ |
+| _Aimê_ | _a definir_ |
 
 ## 🎓 Informações acadêmicas
 
