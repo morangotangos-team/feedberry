@@ -39,9 +39,9 @@ feedberry/
 | | |
 |---|---|
 | **Disciplina** | Arquitetura de Software |
-| **Instituição** | _a definir_ |
-| **Professor(a)** | _a definir_ |
-| **Semestre** | _a definir_ |
+| **Instituição** | _PUC GO_ |
+| **Professor(a)** | _Adriana_ |
+| **Semestre** | _5º semestre_ |
 
 ## 📄 Licença
 
