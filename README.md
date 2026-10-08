@@ -29,10 +29,10 @@ feedberry/
 | Nome | Papel |
 |------|-------|
 | _Fernando_ | Gerente de Projetos |
-| _Paula_ | _a definir_ |
-| _Enzo_ | _a definir_ |
-| _Samara_ | _a definir_ |
-| _Aimê_ | _a definir_ |
+| _Paula_ | _Desenvolvedor(a)_ |
+| _Enzo_ | _Desenvolvedor(a)_ |
+| _Samara_ | _Desenvolvedor(a)_ |
+| _Aimê_ | _Desenvolvedor(a)_ |
 
 ## 🎓 Informações acadêmicas
 
