@@ -33,6 +33,7 @@ feedberry/
 | _Enzo_ | _Desenvolvedor(a)_ |
 | _Samara_ | _Desenvolvedor(a)_ |
 | _Aimê_ | _Desenvolvedor(a)_ |
+| _Matheus_ | _Desenvolvedor(a)_ |
 
 ## 🎓 Informações acadêmicas
 
