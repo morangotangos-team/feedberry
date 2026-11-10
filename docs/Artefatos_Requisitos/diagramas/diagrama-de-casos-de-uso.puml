@@ -1,0 +1,72 @@
+@startuml diagrama-de-casos-de-uso
+' Diagrama de casos de uso do FeedBerry
+' Fonte editável: renderize com PlantUML (https://plantuml.com) ou extensão PlantUML do VS Code.
+' Rastreabilidade de cada ator/caso de uso: docs/Artefatos_Requisitos/analise/Analise dos artefatos.md
+
+skinparam defaultFontName Arial
+skinparam shadowing false
+skinparam ArrowColor #444444
+skinparam ArrowFontSize 10
+skinparam actorStyle awesome
+left to right direction
+
+skinparam usecase {
+  BackgroundColor #FFFFFF
+  BorderColor #C2185B
+}
+skinparam rectangle {
+  BackgroundColor #FFF8FA
+  BorderColor #C2185B
+  FontStyle bold
+}
+
+actor "Usuário" as USU
+actor "Colaborador" as COLAB
+actor "Líder / Gestor" as LIDER
+actor "Serviço de notificação\n(a confirmar)" as NOTIF
+
+COLAB -up-|> USU
+LIDER -up-|> COLAB
+
+rectangle "FeedBerry" {
+  usecase "UC01 Fazer login" as UC01
+  usecase "UC02 Criar conta" as UC02
+  usecase "UC03 Enviar feedback\nao colaborador" as UC03
+  usecase "UC04 Registrar pontos\nde melhoria" as UC04
+  usecase "UC05 Definir metas de\ndesenvolvimento" as UC05
+  usecase "UC06 Agendar retorno /\nlembrete de acompanhamento" as UC06
+  usecase "UC07 Acompanhar evolução\nda equipe" as UC07
+  usecase "UC08 Gerar relatórios" as UC08
+  usecase "UC09 Visualizar feedbacks\nrecebidos" as UC09
+  usecase "UC10 Consultar histórico\nde feedbacks" as UC10
+  usecase "UC11 Acompanhar metas e\nevolução pessoal" as UC11
+  usecase "UC12 Enviar feedback\nao líder" as UC12
+  usecase "UC13 Enviar feedback\nanônimo" as UC13
+  usecase "UC14 Receber lembretes" as UC14
+}
+
+USU --> UC01
+USU --> UC02
+USU --> UC14
+
+COLAB --> UC09
+COLAB --> UC10
+COLAB --> UC11
+COLAB --> UC12
+
+LIDER --> UC03
+LIDER --> UC05
+LIDER --> UC06
+LIDER --> UC07
+LIDER --> UC08
+
+UC03 ..> UC04 : <<include>>
+UC13 .up.> UC12 : <<extend>>
+UC06 ..> UC14 : <<include>>
+UC07 ..> UC10 : <<include>>
+UC08 .up.> UC07 : <<extend>>
+UC11 ..> UC10 : <<include>>
+UC02 .up.> UC01 : <<extend>>
+
+UC14 --> NOTIF
+@enduml
