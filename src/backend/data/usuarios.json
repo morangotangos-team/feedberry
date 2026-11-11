@@ -1,0 +1,14 @@
+[
+  {
+    "nome": "Publicador de Teste",
+    "email": "publicador@exemplo.com",
+    "perfil": "publicador",
+    "senha_hash": "scrypt:32768:8:1$9WebvM90r1hK5gbd$805d1b8f61f191db79d8ef4db6f4be751732e0b8cf5a030aaac49e419c9c683aa67741bb96d4f548f385cbb7528002f318d664ac9fcc3f6352e8851cf955c4aa"
+  },
+  {
+    "nome": "Receptor de Teste",
+    "email": "receptor@exemplo.com",
+    "perfil": "receptor",
+    "senha_hash": "scrypt:32768:8:1$clFXRQwOZwRho7Cu$4a4bce2b40220b92f0e76ee158bd7a331273094c860be929398da61895d0579b3f2e49f84193e4a03edd51e6fc45d7da0e12823166072c349632a29b29da6fc0"
+  }
+]
