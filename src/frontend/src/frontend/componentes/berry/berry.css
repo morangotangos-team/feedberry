@@ -1,0 +1,4 @@
+.berry-sprite{position:absolute;width:0;height:0;overflow:hidden}
+.berry-logo{width:34px;height:34px}
+.seed{transform-box:fill-box;transform-origin:center;animation:pop .5s cubic-bezier(.3,1.6,.5,1) both;animation-delay:calc(var(--i)*70ms + 200ms)}
+@keyframes pop{from{transform:scale(0) rotate(40deg);opacity:0}}

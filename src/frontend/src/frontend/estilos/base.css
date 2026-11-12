@@ -1,0 +1,28 @@
+/* ==========================================================================
+   FeedBerry · base
+   Reset, tipografia, foco, botões e selos usados em todas as telas.
+   Cores e fontes vêm de tokens.css.
+   ========================================================================== */
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 1rem/1.55 var(--body);min-height:100vh;transition:background .3s,color .3s}
+h1,h2,h3{font-family:var(--display);line-height:1.1;margin:0;letter-spacing:-.01em}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--berry);outline-offset:2px;border-radius:8px}
+
+/* botões */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:999px;padding:12px 22px;font-weight:600;cursor:pointer;background:var(--berry);color:var(--on-berry);text-decoration:none;transition:transform .15s,filter .15s}
+.btn:hover{filter:brightness(1.07);transform:translateY(-1px)}
+.btn.ghost{background:transparent;color:var(--berry-ink);box-shadow:inset 0 0 0 1.5px var(--line)}
+.btn.ghost:hover{background:var(--blush);filter:none}
+.btn.sm{padding:6px 14px;font-size:.88rem}
+
+/* selos: .chip usa a cor de --c; .tag é neutro */
+.chip,.tag{border-radius:99px;padding:3px 12px;font-size:.82rem;font-weight:600}
+.chip{color:var(--c);background:color-mix(in srgb,var(--c) 14%,transparent)}
+.tag{color:var(--muted);box-shadow:inset 0 0 0 1px var(--line)}
+
+.sem-js{padding:24px;text-align:center;color:var(--muted)}
+
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}

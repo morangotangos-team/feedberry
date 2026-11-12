@@ -1,0 +1,13 @@
+.lista-metas{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px}
+.meta-ponto{background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:22px;display:grid;gap:6px;align-content:start}
+.meta-ponto:nth-child(3n+2){border-radius:24px 24px 24px 56px}
+.meta-ponto:nth-child(3n){border-radius:56px 24px 24px 24px}
+.meta-ponto__topo{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.meta-ponto h3{font-size:1.1rem;line-height:1.25}
+.meta-ponto__topo .chip{flex:none}
+.meta-ponto__apoio,.meta-ponto__prazo{margin:0;color:var(--muted);font-size:.92rem}
+.meta-ponto__prazo{margin-top:6px}
+.chip--em-aberto{--c:var(--status-aberto)}
+.chip--em-andamento{--c:var(--status-andamento)}
+.chip--concluido{--c:var(--status-concluido)}
+.chip--atrasado{--c:var(--status-atrasado)}

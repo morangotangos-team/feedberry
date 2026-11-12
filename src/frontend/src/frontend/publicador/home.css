@@ -1,0 +1,5 @@
+/* Estilos exclusivos da home do PUBLICADOR.
+   Cores e fontes vêm de ../estilos/tokens.css; o resto vem dos componentes. */
+
+/* bloco "Próximos retornos": botão de agendar abaixo da lista */
+.retornos__acoes{margin-top:14px}
