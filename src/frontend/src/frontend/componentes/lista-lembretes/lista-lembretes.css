@@ -1,0 +1,9 @@
+.lembretes{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.lembrete{display:flex;align-items:center;gap:14px;background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:14px 16px}
+.lembrete__data{flex:none;width:52px;text-align:center;background:var(--blush);border-radius:14px;padding:6px 0;line-height:1.1}
+.lembrete__dia{display:block;font:800 1.35rem var(--display);color:var(--berry-ink)}
+.lembrete__mes{display:block;font-size:.78rem;color:var(--muted)}
+.lembrete__texto{flex:1;min-width:0}
+.lembrete__titulo{font-weight:600;overflow-wrap:anywhere}
+.lembrete__apoio{color:var(--muted);font-size:.88rem;overflow-wrap:anywhere}
+.lembrete__quando{color:var(--muted);font-size:.85rem;white-space:nowrap}

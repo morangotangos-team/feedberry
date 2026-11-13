@@ -1,0 +1,2 @@
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translate(-50%,140%);opacity:0;pointer-events:none;background:var(--ink);color:var(--bg);padding:12px 22px;border-radius:99px;font-weight:600;transition:transform .35s cubic-bezier(.3,1.4,.5,1),opacity .2s;z-index:30;max-width:calc(100vw - 32px);text-align:center}
+.toast.on{transform:translate(-50%,0);opacity:1}

@@ -1,0 +1,34 @@
+/* ==========================================================================
+   FeedBerry · tokens de design
+   Cores, fontes e tema claro/escuro, extraídos do login (PR #14).
+   Regra do projeto: nenhuma cor fixa fora deste arquivo.
+   O tema escuro é ativado por <html data-theme="dark">.
+   ========================================================================== */
+:root{
+  --bg:#FFF4F5;--surface:#FFFFFF;--ink:#3A0F1D;--muted:#7D5360;--line:#F4D6DC;
+  --berry:#D6264B;--berry-ink:#B81D41;--on-berry:#FFFFFF;--blush:#FFE0E5;--leaf:#2F7A4B;--seed:#F5C242;
+  --brilho:#FFFFFF;
+
+  /* tipos de feedback */
+  --elogio:#B81D41;--construtivo:#8F5A00;--ideia:#2F7A4B;
+
+  /* status de metas e pontos de melhoria */
+  --status-aberto:var(--berry-ink);
+  --status-andamento:var(--construtivo);
+  --status-concluido:var(--leaf);
+  --status-atrasado:var(--berry-ink);
+
+  /* avatares: a cor é escolhida pelo nome (ver componentes/avatar) */
+  --neutro:#9A8088;--on-avatar:#FFFFFF;
+  --avatar-1:#D6264B;--avatar-2:#D2691E;--avatar-3:#2F7A4B;
+  --avatar-4:#8E4BC4;--avatar-5:#2F7FBF;--avatar-6:#B03A7A;
+
+  --display:"Bricolage Grotesque","Trebuchet MS",system-ui,sans-serif;
+  --body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+:root[data-theme=dark]{
+  color-scheme:dark;
+  --bg:#1C0A10;--surface:#2A1019;--ink:#FFEAEE;--muted:#CBA3AE;--line:#4B2331;
+  --berry:#FF5B7B;--berry-ink:#FF8AA1;--on-berry:#2A0A14;--blush:#3D1521;--leaf:#6FD197;
+  --elogio:#FF8AA1;--construtivo:#F5C242;--ideia:#6FD197;
+}
