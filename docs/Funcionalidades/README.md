@@ -9,4 +9,4 @@ Esta pasta reúne a documentação de cada funcionalidade do **FeedBerry**, com 
 
 | Funcionalidade | Perfis | Status | Issue |
 |----------------|--------|--------|-------|
-| _Nenhuma funcionalidade documentada ainda_ | | | |
+| [Login](login.md) | Publicador / Receptor | Em revisão | #9, #6 |
