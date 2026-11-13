@@ -2,7 +2,7 @@
 
 - **Status:** Proposto
 - **Data:** 2026-11-11
-- **Quem decidiu:** a confirmar
+- **Quem decidiu:** Enzo e Matheus
 - **Origem:** [#9](https://github.com/morangotangos-team/feedberry/issues/9) (back-end de login), [PR #12](https://github.com/morangotangos-team/feedberry/pull/12) (em rascunho)
 - **Relacionados:** [ADR-003](ADR-003-backend-flask-em-camadas.md)
 

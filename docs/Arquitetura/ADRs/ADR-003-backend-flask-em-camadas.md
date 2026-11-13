@@ -2,7 +2,7 @@
 
 - **Status:** Proposto
 - **Data:** 2026-11-10
-- **Quem decidiu:** a confirmar
+- **Quem decidiu:** Grupo
 - **Origem:** [#9](https://github.com/morangotangos-team/feedberry/issues/9) (back-end de login), [PR #12](https://github.com/morangotangos-team/feedberry/pull/12) (em rascunho)
 - **Relacionados:** [ADR-004](ADR-004-hash-scrypt.md), [ADR-005](ADR-005-frontend-servido-pelo-flask.md), [ADR-006](ADR-006-perfil-da-conta.md)
 

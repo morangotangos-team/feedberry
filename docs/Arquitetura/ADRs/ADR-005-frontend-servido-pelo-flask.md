@@ -2,7 +2,7 @@
 
 - **Status:** Proposto
 - **Data:** 2026-11-12
-- **Quem decidiu:** a confirmar
+- **Quem decidiu:** Fernando Felipe
 - **Origem:** [#16](https://github.com/morangotangos-team/feedberry/issues/16) (integração do login com a API), ponto 7 da análise
 - **Relacionados:** [ADR-001](ADR-001-frontend-sem-framework.md), [ADR-003](ADR-003-backend-flask-em-camadas.md)
 

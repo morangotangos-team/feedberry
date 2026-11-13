@@ -2,7 +2,7 @@
 
 - **Status:** Aceito
 - **Data:** 2026-11-12
-- **Quem decidiu:** a confirmar
+- **Quem decidiu:** Fernando Felipe
 - **Origem:** [#15](https://github.com/morangotangos-team/feedberry/issues/15) (homes), [PR #14](https://github.com/morangotangos-team/feedberry/pull/14) e [PR #21](https://github.com/morangotangos-team/feedberry/pull/21)
 - **Relacionados:** [ADR-001](ADR-001-frontend-sem-framework.md)
 

@@ -2,7 +2,7 @@
 
 - **Status:** Aceito
 - **Data:** 2026-11-10
-- **Quem decidiu:** a confirmar
+- **Quem decidiu:** Fernando Felipe
 - **Origem:** [#6](https://github.com/morangotangos-team/feedberry/issues/6) (tela de login), [#15](https://github.com/morangotangos-team/feedberry/issues/15) (homes), [PR #14](https://github.com/morangotangos-team/feedberry/pull/14) e [PR #21](https://github.com/morangotangos-team/feedberry/pull/21)
 - **Relacionados:** [ADR-002](ADR-002-componentes-compartilhados.md), [ADR-005](ADR-005-frontend-servido-pelo-flask.md)
 
