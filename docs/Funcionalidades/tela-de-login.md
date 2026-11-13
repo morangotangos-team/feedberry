@@ -39,7 +39,11 @@ O botão **🌙 Tema noturno**, no canto superior direito, troca entre o tema cl
 | Mensagem de erro | O campo com problema fica com a borda destacada e a mensagem aparece logo abaixo da senha |
 | Celular | A identidade visual (logo, morango e frase) vai para o topo e o formulário ocupa a largura da tela |
 
-> 🖼️ Os prints das telas entram em `imagens/login/` (pendência registrada no PR desta documentação).
+![Acesso do publicador](imagens/login/tela-login-publicador.png)
+
+![Acesso do receptor](imagens/login/tela-login-receptor.png)
+
+![Mensagem de erro no celular](imagens/login/tela-login-celular-erro.png)
 
 ### Dúvidas comuns
 
