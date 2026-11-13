@@ -1,0 +1,51 @@
+@startuml diagrama-de-contexto
+' Diagrama de contexto do FeedBerry
+' Fonte editável: renderize com PlantUML (https://plantuml.com) ou extensão PlantUML do VS Code.
+' Rastreabilidade de cada ator/fluxo: docs/Artefatos_Requisitos/analise/Analise dos artefatos.md
+
+skinparam defaultFontName Arial
+skinparam shadowing false
+skinparam ArrowColor #444444
+skinparam ArrowFontSize 11
+skinparam actorStyle awesome
+left to right direction
+
+skinparam rectangle {
+  BackgroundColor #FCE4EC
+  BorderColor #C2185B
+  FontSize 16
+  FontStyle bold
+}
+skinparam actor {
+  BackgroundColor #FFFFFF
+  BorderColor #444444
+}
+skinparam node {
+  BackgroundColor #F5F5F5
+  BorderColor #888888
+}
+
+actor "Líder / Gestor" as LIDER
+actor "Colaborador" as COLAB
+node "Serviço de notificação\n(e-mail) — a confirmar" as NOTIF
+
+rectangle "FeedBerry\n(plataforma de feedbacks)" as SIS
+
+LIDER --> SIS : credenciais de acesso
+LIDER --> SIS : feedback para o colaborador\n(pontos de melhoria, data)
+LIDER --> SIS : metas de desenvolvimento
+LIDER --> SIS : agendamento de retorno /\nlembrete de acompanhamento
+SIS --> LIDER : histórico de feedbacks da equipe
+SIS --> LIDER : evolução e relatórios\npor colaborador
+SIS --> LIDER : lembretes de feedback pendente
+
+COLAB --> SIS : credenciais de acesso /\ndados de cadastro
+COLAB --> SIS : feedback para o líder\n(identificado ou anônimo)
+SIS --> COLAB : feedbacks recebidos
+SIS --> COLAB : histórico, metas e evolução
+SIS --> COLAB : lembretes dos pontos combinados
+
+SIS --> NOTIF : lembretes e avisos\nde novo feedback
+NOTIF --> LIDER : e-mail de lembrete
+NOTIF --> COLAB : e-mail de aviso / lembrete
+@enduml

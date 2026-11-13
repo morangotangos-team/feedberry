@@ -126,6 +126,18 @@ git push -u origin feature/seu-usuario-descricao
 3. Descreva o que foi feito e marque pelo menos **1 integrante** para revisar;
 4. Após aprovação, faça o merge e apague a branch.
 
+### Regra de revisão obrigatória
+
+A `main` e a `develop` são **branches protegidas** no GitHub:
+
+| Regra | Como funciona |
+|-------|---------------|
+| Merge só via pull request | Ninguém consegue fazer push direto na `main` nem na `develop` |
+| **1 aprovação** obrigatória | O botão de merge fica bloqueado até alguém aprovar o PR |
+| Não vale aprovar o próprio PR | A aprovação tem que ser de **outro integrante** |
+| Force push e exclusão bloqueados | Não dá para reescrever o histórico nem apagar essas branches |
+| Exceção do admin | O admin pode dar merge sem aprovação, marcando *“Merge without waiting for requirements to be met”*. **Use só em emergência** (ex.: entrega da disciplina no prazo e ninguém disponível para revisar) e avise o grupo |
+
 ### Fazendo uma entrega (release)
 
 ```bash
@@ -164,7 +176,9 @@ Abra o PR para a **`main`** e, depois, outro para a **`develop`**, para que a co
 | Só vou mexer em documentação | Também é `feature/*`; use commits do tipo `docs` |
 | Achei um erro no que já foi entregue (`main`) | Crie um `hotfix/*` a partir da `main` |
 | Vamos fechar uma entrega da disciplina | Crie uma `release/*` a partir da `develop` |
-| Posso fazer commit direto na `main` ou `develop`? | **Não.** Sempre via pull request |
+| Posso fazer commit direto na `main` ou `develop`? | **Não.** Sempre via pull request, e o GitHub bloqueia o push direto |
+| O botão de merge do meu PR está bloqueado | Falta a aprovação de 1 integrante. Peça revisão para alguém do grupo |
+| Posso aprovar meu próprio PR? | **Não.** A aprovação tem que ser de outra pessoa |
 | Para onde vai o PR da minha feature? | Para a `develop` |
 | Para onde vai o PR de release/hotfix? | Para a `main` (e depois sincronize a `develop`) |
 | Minha branch ficou desatualizada | `git checkout develop && git pull`, depois `git checkout sua-branch && git merge develop` |

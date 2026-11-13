@@ -1,0 +1,6 @@
+.marca{display:flex;align-items:center;gap:10px;font:800 1.5rem var(--display);padding:0 10px;color:var(--ink);text-decoration:none}
+.marca__nome span{color:var(--berry-ink)}
+.cabecalho__usuario{display:flex;align-items:center;gap:10px;padding:12px;border-radius:16px;background:var(--blush)}
+.cabecalho__usuario small{display:block;color:var(--muted);line-height:1.2}
+.cabecalho__usuario strong{line-height:1.2}
+.barra-acoes{display:flex;justify-content:flex-end;gap:8px;margin:-10px 0 18px}
