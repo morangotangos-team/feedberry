@@ -9,4 +9,5 @@ Esta pasta reúne a documentação de cada funcionalidade do **FeedBerry**, com 
 
 | Funcionalidade | Perfis | Status | Issue |
 |----------------|--------|--------|-------|
-| _Nenhuma funcionalidade documentada ainda_ | | | |
+| [Home do publicador](home-publicador.md) | Publicador | Somente front-end (dados de exemplo) | #15 |
+| [Home do receptor](home-receptor.md) | Receptor | Somente front-end (dados de exemplo) | #15 |
