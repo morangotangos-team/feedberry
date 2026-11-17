@@ -1,24 +1,24 @@
-"""Testes do login (issue #9).
+"""Testes do login (issue #9), com os usuários no banco de dados (issue #13).
 
 Rodar a partir de src/backend:  python -m pytest
 
 As senhas usadas aqui são geradas na hora com `secrets`, então nenhuma
-senha fica escrita no código. Cada teste usa um arquivo de usuários
-temporário, sem tocar no data/usuarios.json do projeto.
+senha fica escrita no código. Cada teste usa um banco SQLite em memória
+(fixture `app` do conftest.py), sem tocar no banco local do projeto.
+
+Enquanto o login usar perfil publicador/receptor, o repositório traduz o
+papel da conta: LIDER -> publicador, COLABORADOR -> receptor (ADR-007).
 """
 
-import json
 import logging
 import secrets
-from pathlib import Path
 
 import pytest
+from sqlalchemy import select
 
-from app import create_app
 from auth.security import gerar_hash_senha, verificar_senha
 from auth.service import MENSAGEM_CREDENCIAIS_INVALIDAS
-
-ARQUIVO_USUARIOS_DO_PROJETO = Path(__file__).resolve().parent.parent / "data" / "usuarios.json"
+from models import Papel, Usuario
 
 
 @pytest.fixture
@@ -30,25 +30,13 @@ def senhas():
 
 
 @pytest.fixture
-def client(tmp_path, senhas):
-    usuarios = [
-        {
-            "nome": "Pessoa Publicadora",
-            "email": "publicador@exemplo.com",
-            "perfil": "publicador",
-            "senha_hash": gerar_hash_senha(senhas["publicador"]),
-        },
-        {
-            "nome": "Pessoa Receptora",
-            "email": "receptor@exemplo.com",
-            "perfil": "receptor",
-            "senha_hash": gerar_hash_senha(senhas["receptor"]),
-        },
-    ]
-    arquivo = tmp_path / "usuarios.json"
-    arquivo.write_text(json.dumps(usuarios), encoding="utf-8")
-
-    app = create_app({"TESTING": True, "USUARIOS_ARQUIVO": arquivo})
+def client(app, criar_usuario, senhas):
+    criar_usuario(
+        "publicador@exemplo.com", Papel.LIDER, "Pessoa Publicadora", senhas["publicador"]
+    )
+    criar_usuario(
+        "receptor@exemplo.com", Papel.COLABORADOR, "Pessoa Receptora", senhas["receptor"]
+    )
     return app.test_client()
 
 
@@ -175,14 +163,25 @@ def test_hash_usa_salt_diferente_a_cada_vez(senhas):
     assert not verificar_senha(hash_1, senha + "x")
 
 
-def test_arquivo_de_usuarios_do_projeto_so_guarda_hash():
-    usuarios = json.loads(ARQUIVO_USUARIOS_DO_PROJETO.read_text(encoding="utf-8"))
+def test_banco_guarda_so_o_hash_da_senha(client, sessao, senhas):
+    usuarios = sessao.scalars(select(Usuario)).all()
 
-    assert usuarios, "o arquivo deve ter usuários de teste"
+    assert len(usuarios) == 2
     for usuario in usuarios:
-        assert set(usuario) == {"nome", "email", "perfil", "senha_hash"}
-        assert usuario["senha_hash"].startswith("scrypt:")
-        assert usuario["perfil"] in ("publicador", "receptor")
+        assert usuario.senha_hash.startswith("scrypt:")
+        assert senhas["publicador"] not in usuario.senha_hash
+        assert senhas["receptor"] not in usuario.senha_hash
+
+
+def test_usuario_desativado_nao_consegue_entrar(client, sessao, senhas):
+    usuario = sessao.scalar(select(Usuario).where(Usuario.email == "publicador@exemplo.com"))
+    usuario.desativar()
+    sessao.commit()
+
+    resposta = fazer_login(client, "publicador@exemplo.com", senhas["publicador"], "publicador")
+
+    assert resposta.status_code == 401
+    assert resposta.get_json() == {"sucesso": False, "mensagem": MENSAGEM_CREDENCIAIS_INVALIDAS}
 
 
 def test_senha_nao_aparece_nos_logs(client, senhas, caplog):

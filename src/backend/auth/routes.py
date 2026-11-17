@@ -1,6 +1,6 @@
 """Rotas HTTP do login."""
 
-from flask import Blueprint, current_app, jsonify, request
+from flask import Blueprint, jsonify, request
 
 from repositories.usuario_repository import UsuarioRepository
 
@@ -20,7 +20,7 @@ def login():
     if not isinstance(dados, dict):
         return jsonify(sucesso=False, mensagem="Envie e-mail, senha e perfil em JSON."), 400
 
-    repositorio = UsuarioRepository(current_app.config["USUARIOS_ARQUIVO"])
+    repositorio = UsuarioRepository()
     servico = AuthService(repositorio)
 
     try:

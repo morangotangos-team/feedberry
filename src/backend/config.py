@@ -23,9 +23,6 @@ def _url_do_banco() -> str:
 class Config:
     SQLALCHEMY_DATABASE_URI = _url_do_banco()
 
-    # Enquanto não há banco de dados, os usuários ficam neste arquivo JSON.
-    USUARIOS_ARQUIVO = PASTA_BACKEND / "data" / "usuarios.json"
-
     # Boa prática de segurança: limita o tamanho das requisições (16 KB sobra
     # para e-mail, senha e perfil). Sem limite, um corpo enorme seria lido
     # inteiro na memória. Acima disso, o Flask responde 413.
