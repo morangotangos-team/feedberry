@@ -2,6 +2,7 @@ import { berrySprite } from '../berry/berry.js';
 import { cabecalho, barraAcoes, ativarCabecalho } from '../cabecalho/cabecalho.js';
 import { menu } from '../menu/menu.js';
 import { mostrarToast } from '../toast/toast.js';
+import { sair } from '../../servicos/auth.js';
 
 /**
  * Estrutura comum das duas homes: lateral (logo, menu, usuário) + área de conteúdo
@@ -36,8 +37,13 @@ export function atualizarConteudo(raiz, html) {
  * @param {{ urlLogin?: string }} [opcoes]  para onde o Sair leva (padrão: ../index.html)
  */
 export function ativarLayoutHome(raiz, { urlLogin = '../index.html' } = {}) {
-  // TODO(back-end): encerrar a sessão (chamar a API de logout) antes de ir para o login.
-  ativarCabecalho(raiz, { aoSair: () => location.assign(urlLogin) });
+  // Sair apaga a identidade guardada no login (ainda não há sessão no back-end).
+  ativarCabecalho(raiz, {
+    aoSair: () => {
+      sair();
+      location.assign(urlLogin);
+    },
+  });
 
   // Links com href="#" são telas que serão criadas em outras issues.
   raiz.addEventListener('click', (evento) => {
