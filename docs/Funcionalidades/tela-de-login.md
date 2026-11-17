@@ -5,7 +5,7 @@
 | **Status** | Em revisão (somente front-end, sem autenticação real) |
 | **Perfis** | Publicador / Receptor |
 | **Issue** | #6 |
-| **Última atualização** | 2026-11-13 |
+| **Última atualização** | 2026-11-16 |
 
 ---
 
@@ -125,10 +125,11 @@ python -m http.server
 
 | Issue | Requisito | Caso de uso |
 |-------|-----------|-------------|
-| #6 (tela) · relacionadas: #9 (back-end), #16 (integração) | A definir | UC01 Fazer login · fluxograma de login (CT01 a CT05) |
+| #6 (tela) · relacionadas: #9 (back-end), #16 (integração) | [RF01](../Artefatos_Requisitos/requisitos/Requisitos%20funcionais.md) · RNF05, RNF06 | UC01 Fazer login · fluxograma de login (CT01 a CT05) |
 
 ### Histórico
 
 | Data | Autor(a) | Alteração |
 |------|----------|-----------|
 | 2026-11-13 | Paula Silvério de Castro | Criação da documentação da tela de login (o código entrou pelos PRs #14 e #21) |
+| 2026-11-16 | Paula Silvério de Castro | Rastreabilidade: requisito "A definir" trocado por RF01 (issue #24) |
