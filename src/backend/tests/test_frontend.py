@@ -37,3 +37,13 @@ def test_api_de_login_continua_no_mesmo_endereco(client):
 
     assert resposta.status_code == 400
     assert resposta.is_json
+
+
+@pytest.mark.parametrize("metodo", ["get", "put", "patch", "delete"])
+def test_login_por_outro_metodo_responde_405(client, metodo):
+    # Servir as telas na raiz não pode transformar GET /auth/login em 404.
+    resposta = getattr(client, metodo)("/auth/login")
+
+    assert resposta.status_code == 405
+    assert resposta.headers["Allow"] == "POST"
+    assert resposta.is_json
