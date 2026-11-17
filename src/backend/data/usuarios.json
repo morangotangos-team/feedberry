@@ -3,18 +3,18 @@
     "nome": "Publicador de Teste",
     "email": "publicador@exemplo.com",
     "perfil": "publicador",
-    "senha_hash": "scrypt:32768:8:1$9WebvM90r1hK5gbd$805d1b8f61f191db79d8ef4db6f4be751732e0b8cf5a030aaac49e419c9c683aa67741bb96d4f548f385cbb7528002f318d664ac9fcc3f6352e8851cf955c4aa"
+    "senha_hash": "scrypt:32768:8:1$rMCysgdNEsVhkn1u$2e3f254f01b93f9d2e611304aca90ab27d08864859473aef4b4645e92758986392b4d6c306cfb05237600993ee60fdb145888e8b9bec57579551a551d4735519"
   },
   {
     "nome": "Receptor de Teste",
     "email": "receptor@exemplo.com",
     "perfil": "receptor",
-    "senha_hash": "scrypt:32768:8:1$clFXRQwOZwRho7Cu$4a4bce2b40220b92f0e76ee158bd7a331273094c860be929398da61895d0579b3f2e49f84193e4a03edd51e6fc45d7da0e12823166072c349632a29b29da6fc0"
+    "senha_hash": "scrypt:32768:8:1$2gMllrLGqTsZxFN7$5b3f76d947823d903fabb7bd0c454b7a9f4757be526f3138fb57efce21883ebf5be2f0fb00fbbd4a15360f85ba59042d62e86f37fb69aca9e3e06ee2f3b978e3"
   },
   {
     "nome": "Usuário de Validação",
     "email": "validacao@exemplo.com",
     "perfil": "publicador",
-    "senha_hash": "scrypt:32768:8:1$WpqTi5jysufQNbAm$a14a67c5fcf5a7861e4bffd763488c2d4d962468abd38cf1331546516e18f713a7fc390093396386e5c0df014ae04963bda52351c0ec00990cff67fcecedf3bd"
+    "senha_hash": "scrypt:32768:8:1$AjGfnSbywlH5KphA$b63d4968616933fe061946965a807b8b35764edf0ce92b83c5ad2860a6a39cf9782c8cc1d6c1d604db66ad742c6f18e0cd544c0cc58d3554004df2929b63ecde"
   }
 ]
