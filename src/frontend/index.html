@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Acesso do publicador · FeedBerry</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🍓%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="utils/tema-inicial.js"></script>
+<link rel="stylesheet" href="estilos/tokens.css">
+<link rel="stylesheet" href="estilos/base.css">
+<link rel="stylesheet" href="componentes/berry/berry.css">
+<link rel="stylesheet" href="componentes/cabecalho/cabecalho.css">
+<link rel="stylesheet" href="componentes/toast/toast.css">
+<link rel="stylesheet" href="login/login.css">
+</head>
+<body>
+<main class="login">
+
+  <!-- lado esquerdo: identidade visual -->
+  <section class="login__arte" aria-label="FeedBerry">
+    <div class="login__marca" data-marca></div>
+    <div class="login__berry" data-berry></div>
+    <h2>Feedback bom dá fruto.</h2>
+    <p>Troque percepções com o seu time de forma simples, frequente e gentil.</p>
+  </section>
+
+  <!-- lado direito: acesso -->
+  <section class="login__lado" aria-label="Entrar no FeedBerry">
+    <div class="login__tema">
+      <button class="btn ghost sm" type="button" data-acao="alternar-tema"></button>
+    </div>
+
+    <div class="login__caixa">
+
+      <!-- alternar entre os dois acessos -->
+      <div class="abas" role="tablist" aria-label="Escolha o tipo de acesso">
+        <button class="aba" type="button" role="tab" id="aba-publicador" data-perfil="publicador"
+                aria-controls="painel-publicador" aria-selected="true">
+          <span aria-hidden="true">🖊️</span> Publicador
+        </button>
+        <button class="aba" type="button" role="tab" id="aba-receptor" data-perfil="receptor"
+                aria-controls="painel-receptor" aria-selected="false" tabindex="-1">
+          <span aria-hidden="true">📥</span> Receptor
+        </button>
+      </div>
+
+      <!-- ===================== login do PUBLICADOR ===================== -->
+      <div class="painel" role="tabpanel" id="painel-publicador" aria-labelledby="aba-publicador">
+        <form class="login__form" data-perfil="publicador" novalidate>
+          <div>
+            <h1>Acesso do publicador</h1>
+            <p class="login__sub">Entre para escrever e enviar feedbacks para o seu time.</p>
+          </div>
+
+          <div>
+            <label class="rotulo" for="publicador-email">E-mail</label>
+            <input id="publicador-email" name="email" type="email" autocomplete="email" placeholder="voce@empresa.com">
+          </div>
+
+          <div>
+            <label class="rotulo" for="publicador-senha">Senha</label>
+            <div class="senha">
+              <input id="publicador-senha" name="senha" type="password" autocomplete="current-password" placeholder="Mínimo de 6 caracteres">
+              <button class="olho" type="button" data-alternar-senha aria-controls="publicador-senha" aria-label="Mostrar senha" aria-pressed="false">👁️</button>
+            </div>
+          </div>
+
+          <p class="login__erro" role="alert" data-erro></p>
+
+          <div class="login__linha">
+            <label class="chk"><input type="checkbox" name="lembrar"> Manter conectado</label>
+            <a href="#" data-esqueci>Esqueci minha senha</a>
+          </div>
+
+          <button class="btn" type="submit">Entrar</button>
+          <small class="login__dica">Protótipo: use qualquer e-mail válido e uma senha com 6 ou mais caracteres.</small>
+        </form>
+      </div>
+
+      <!-- ====================== login do RECEPTOR ====================== -->
+      <div class="painel" role="tabpanel" id="painel-receptor" aria-labelledby="aba-receptor" hidden>
+        <form class="login__form" data-perfil="receptor" novalidate>
+          <div>
+            <h1>Acesso do receptor</h1>
+            <p class="login__sub">Entre para ler os feedbacks que você recebeu e acompanhar as suas metas.</p>
+          </div>
+
+          <div>
+            <label class="rotulo" for="receptor-email">E-mail</label>
+            <input id="receptor-email" name="email" type="email" autocomplete="email" placeholder="voce@empresa.com">
+          </div>
+
+          <div>
+            <label class="rotulo" for="receptor-senha">Senha</label>
+            <div class="senha">
+              <input id="receptor-senha" name="senha" type="password" autocomplete="current-password" placeholder="Mínimo de 6 caracteres">
+              <button class="olho" type="button" data-alternar-senha aria-controls="receptor-senha" aria-label="Mostrar senha" aria-pressed="false">👁️</button>
+            </div>
+          </div>
+
+          <p class="login__erro" role="alert" data-erro></p>
+
+          <div class="login__linha">
+            <label class="chk"><input type="checkbox" name="lembrar"> Manter conectado</label>
+            <a href="#" data-esqueci>Esqueci minha senha</a>
+          </div>
+
+          <button class="btn" type="submit">Entrar</button>
+          <small class="login__dica">Protótipo: use qualquer e-mail válido e uma senha com 6 ou mais caracteres.</small>
+        </form>
+      </div>
+
+    </div>
+  </section>
+</main>
+<noscript><p class="sem-js">Ative o JavaScript para usar o FeedBerry.</p></noscript>
+<script type="module" src="login/login.js"></script>
+</body>
+</html>

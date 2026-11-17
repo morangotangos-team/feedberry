@@ -1,0 +1,24 @@
+.layout-home{display:grid;grid-template-columns:248px minmax(0,1fr);min-height:100vh}
+
+/* lateral: logo no alto, menu no meio, usuário embaixo */
+.lateral{position:sticky;top:0;height:100vh;padding:28px 18px;border-right:1px solid var(--line);display:flex;flex-direction:column;gap:28px}
+.lateral .cabecalho{display:contents}
+.lateral .marca{order:0}
+.lateral .menu{order:1}
+.lateral .cabecalho__usuario{order:2;margin-top:auto}
+
+/* conteúdo */
+.principal{padding:40px clamp(20px,4vw,56px) 64px;max-width:1040px;width:100%}
+.principal:focus{outline:none}
+
+/* organização dos blocos da home */
+.home__colunas{display:grid;grid-template-columns:1.5fr 1fr;gap:32px;align-items:start}
+.home__linha{margin-top:40px}
+
+@media (max-width:820px){
+  .layout-home{grid-template-columns:1fr;padding-bottom:calc(76px + env(safe-area-inset-bottom,0px))}
+  .lateral{position:static;height:auto;padding:0;border:0}
+  .lateral .cabecalho{display:none}
+  .principal{padding-top:calc(24px + env(safe-area-inset-top,0px))}
+  .home__colunas{grid-template-columns:1fr}
+}

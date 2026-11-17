@@ -1,0 +1,9 @@
+.avatar{flex:none;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;color:var(--on-avatar);font:700 1.05rem var(--display);background:var(--neutro)}
+.avatar--lg{width:64px;height:64px;font-size:1.6rem}
+.avatar--sm{width:34px;height:34px;font-size:.9rem}
+.avatar--cor-1{background:var(--avatar-1)}
+.avatar--cor-2{background:var(--avatar-2)}
+.avatar--cor-3{background:var(--avatar-3)}
+.avatar--cor-4{background:var(--avatar-4)}
+.avatar--cor-5{background:var(--avatar-5)}
+.avatar--cor-6{background:var(--avatar-6)}

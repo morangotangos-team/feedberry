@@ -1,0 +1,52 @@
+/* ==========================================================================
+   Tela de login (issue #6). Cores e fontes vêm de estilos/tokens.css.
+   ========================================================================== */
+.login{min-height:100vh;display:grid;grid-template-columns:1.05fr 1fr}
+
+/* lado esquerdo */
+.login__arte{background:var(--blush);display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:14px;padding:clamp(28px,6vw,72px)}
+.login__marca{margin-bottom:auto}
+.login__marca .marca{padding:0}
+.login__arte h2{font-size:clamp(2rem,4vw,3.2rem);font-weight:800;max-width:12ch}
+.login__arte p{margin:0;color:var(--muted);max-width:38ch}
+.login__berry{width:min(250px,60%)}
+.login__berry svg{width:100%;overflow:visible;margin-block:12px}
+
+/* lado direito */
+.login__lado{position:relative;display:grid;align-content:center;padding:clamp(24px,5vw,64px)}
+.login__tema{position:absolute;top:calc(20px + env(safe-area-inset-top,0px));right:20px}
+.login__caixa{width:100%;max-width:400px;margin:0 auto;display:grid;gap:28px}
+
+/* abas: publicador / receptor */
+.abas{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:6px;border-radius:999px;background:var(--blush)}
+.aba{display:flex;align-items:center;justify-content:center;gap:8px;border:0;cursor:pointer;border-radius:999px;padding:10px 14px;font-weight:600;background:transparent;color:var(--muted);transition:background .2s,color .2s}
+.aba:hover{color:var(--ink)}
+.aba[aria-selected=true]{background:var(--berry);color:var(--on-berry)}
+
+/* formulário */
+.login__form{display:grid;gap:20px}
+.login__form h1{font-size:2.5rem;font-weight:800}
+.login__sub{margin:10px 0 0;color:var(--muted)}
+.rotulo{font:700 1.05rem var(--display);margin-bottom:10px;display:block}
+.login__form input:not([type=checkbox]){width:100%;border:1.5px solid var(--line);background:var(--surface);border-radius:14px;padding:12px 14px}
+.login__form input[aria-invalid=true]{border-color:var(--berry)}
+.senha{position:relative}
+.senha input{padding-right:52px!important}
+.olho{position:absolute;right:6px;top:50%;transform:translateY(-50%);border:0;background:none;cursor:pointer;font-size:1.1rem;padding:8px;border-radius:10px}
+.login__erro{color:var(--berry-ink);font-weight:600;min-height:1.4em;margin:0}
+.login__linha{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.login__linha a{color:var(--berry-ink);font-weight:600}
+.chk{display:flex;gap:10px;align-items:center;font-weight:500}
+.chk input{width:20px;height:20px;accent-color:var(--berry)}
+.login__dica{color:var(--muted);font-size:.85rem;text-align:center}
+
+@media (max-width:820px){
+  .login{grid-template-columns:1fr}
+  .login__arte{padding:24px;gap:8px}
+  .login__marca{margin-bottom:0}
+  .login__arte p{display:none}
+  .login__berry{width:110px}
+  .login__berry svg{margin:0}
+  .login__lado{align-content:start;padding-top:64px}
+  .login__form h1{font-size:2rem}
+}
