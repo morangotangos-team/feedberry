@@ -1,17 +1,20 @@
 """Ponto de entrada do back-end do FeedBerry.
 
 Rodar a partir de src/backend:  python app.py
+Depois abra http://127.0.0.1:5000/ para usar a tela de login.
 Modo debug (só na sua máquina): defina FLASK_DEBUG=1 antes de rodar.
 """
 
 from flask import Flask
 
 from auth import auth_bp
-from config import Config
+from config import PASTA_FRONTEND, Config
 
 
 def create_app(config_extra=None):
-    app = Flask(__name__)
+    # O Flask entrega os arquivos de src/frontend/ na raiz do site, na mesma
+    # origem da API (ADR-005). Assim a tela chama fetch("/auth/login") sem CORS.
+    app = Flask(__name__, static_folder=str(PASTA_FRONTEND), static_url_path="")
     app.config.from_object(Config)
     if config_extra:
         app.config.update(config_extra)
@@ -20,6 +23,11 @@ def create_app(config_extra=None):
     app.json.ensure_ascii = False
 
     app.register_blueprint(auth_bp)
+
+    @app.get("/")
+    def tela_de_login():
+        return app.send_static_file("index.html")
+
     return app
 
 

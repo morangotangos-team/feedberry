@@ -10,5 +10,11 @@
     "email": "receptor@exemplo.com",
     "perfil": "receptor",
     "senha_hash": "scrypt:32768:8:1$clFXRQwOZwRho7Cu$4a4bce2b40220b92f0e76ee158bd7a331273094c860be929398da61895d0579b3f2e49f84193e4a03edd51e6fc45d7da0e12823166072c349632a29b29da6fc0"
+  },
+  {
+    "nome": "Usuário de Validação",
+    "email": "validacao@exemplo.com",
+    "perfil": "publicador",
+    "senha_hash": "scrypt:32768:8:1$WpqTi5jysufQNbAm$a14a67c5fcf5a7861e4bffd763488c2d4d962468abd38cf1331546516e18f713a7fc390093396386e5c0df014ae04963bda52351c0ec00990cff67fcecedf3bd"
   }
 ]

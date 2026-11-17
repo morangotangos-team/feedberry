@@ -4,6 +4,9 @@ from pathlib import Path
 
 PASTA_BACKEND = Path(__file__).resolve().parent
 
+# Telas do front-end, entregues pelo próprio Flask na mesma origem da API (ADR-005).
+PASTA_FRONTEND = PASTA_BACKEND.parent / "frontend"
+
 
 class Config:
     # Enquanto não há banco de dados, os usuários ficam neste arquivo JSON.
