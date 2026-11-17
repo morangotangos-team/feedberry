@@ -9,7 +9,7 @@ Esta pasta reúne a documentação de cada funcionalidade do **FeedBerry**, com 
 
 | Funcionalidade | Perfis | Status | Issue |
 |----------------|--------|--------|-------|
-| [Login (back-end)](login.md) | Publicador / Receptor | Em revisão | #9 |
+| [Login (back-end e integração)](login.md) | Publicador / Receptor | Em revisão | #9, #16 |
 | [Home do publicador](home-publicador.md) | Publicador | Somente front-end (dados de exemplo) | #15 |
 | [Home do receptor](home-receptor.md) | Receptor | Somente front-end (dados de exemplo) | #15 |
-| [Tela de login](tela-de-login.md) | Publicador / Receptor | Somente front-end (sem autenticação real) | #6 |
+| [Tela de login](tela-de-login.md) | Publicador / Receptor | Em revisão (integrada à API) | #6, #16 |

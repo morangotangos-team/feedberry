@@ -4,8 +4,8 @@
 |---|---|
 | **Status** | Em revisão |
 | **Perfis** | Publicador / Receptor |
-| **Issue** | #9 (back-end) · #6 (tela, front-end) |
-| **Última atualização** | 2026-11-11 |
+| **Issue** | #9 (back-end) · #16 (integração com a tela) · #6 (tela) |
+| **Última atualização** | 2026-11-17 |
 
 ---
 
@@ -22,13 +22,17 @@ O login permite que a pessoa entre no FeedBerry com o seu e-mail e a sua senha, 
 
 ### Como usar
 
-1. Na tela de login, escolha o seu perfil: **publicador** ou **receptor**.
-2. Digite o seu e-mail e a sua senha.
-3. Clique em **Entrar**.
+1. Abra o FeedBerry (com o servidor rodando, no endereço `http://127.0.0.1:5000/`).
+2. Escolha a aba do seu perfil: **Publicador** ou **Receptor**.
+3. Digite o seu e-mail e a sua senha.
+4. Se quiser continuar conectado depois de fechar o navegador, marque **Manter conectado**.
+5. Clique em **Entrar**. O botão mostra "Entrando..." enquanto o FeedBerry confere os dados.
+6. Se estiver tudo certo, você vai para a home do seu perfil, com o seu nome na saudação.
+7. Para sair, clique em **Sair**, no canto superior direito da home.
 
 ### Telas
 
-Esta parte (issue #9) cobre só o back-end. As telas são da issue #6 e entram aqui quando forem integradas.
+Os prints da tela de login estão em [Tela de login](tela-de-login.md). Depois de entrar, a pessoa vai para a [home do publicador](home-publicador.md) ou para a [home do receptor](home-receptor.md).
 
 ### Dúvidas comuns
 
@@ -36,7 +40,9 @@ Esta parte (issue #9) cobre só o back-end. As telas são da issue #6 e entram a
 |----------|-------------|
 | "Preencha e-mail e senha." | Algum campo ficou em branco. Preencha os dois. |
 | "E-mail inválido." | O e-mail está sem `@` ou sem domínio (ex.: `maria.com`). Confira o que foi digitado. |
-| "E-mail ou senha inválidos." | O e-mail, a senha ou o perfil escolhido não conferem. Confira os dados e se você está na aba do seu perfil. |
+| "E-mail ou senha inválidos." | O e-mail, a senha ou o perfil escolhido não conferem. Confira os dados e se você está na aba do seu perfil. A senha é apagada para você digitar de novo. |
+| "Não foi possível conectar ao FeedBerry. Verifique sua conexão." | O servidor está desligado ou não há rede. Confira se o `python app.py` está rodando. |
+| "Não foi possível concluir agora. Tente novamente em instantes." | O servidor teve um erro inesperado. Tente de novo; se continuar, avise a equipe. |
 
 ---
 
@@ -55,9 +61,11 @@ python -m venv .venv
 .venv\Scripts\activate        # Windows (no Linux/macOS: source .venv/bin/activate)
 pip install -r requirements.txt
 cd src/backend
-python app.py                 # sobe a API em http://127.0.0.1:5000
+python app.py                 # sobe a tela e a API em http://127.0.0.1:5000
 python -m pytest              # roda os testes
 ```
+
+Com o servidor rodando, abra `http://127.0.0.1:5000/` no navegador para usar a tela de login. O próprio Flask entrega as telas de `src/frontend/`, no mesmo endereço da API, como decide a [ADR-005](../Arquitetura/ADRs/ADR-005-frontend-servido-pelo-flask.md) (em revisão no PR #29).
 
 Para ligar o modo debug na sua máquina, defina `FLASK_DEBUG=1` antes de `python app.py` (PowerShell: `$env:FLASK_DEBUG=1`). Ele não fica ligado no código porque o depurador permite executar código Python pelo navegador.
 
@@ -96,6 +104,12 @@ python -c "from werkzeug.security import generate_password_hash; print(generate_
 | RN05 | Campos vazios e e-mail sem formato válido são recusados antes de consultar os usuários. |
 | RN06 | Nenhuma senha é guardada em texto puro (nem no código, nem no arquivo de dados, nem em logs). Só o hash é guardado. |
 | RN07 | A resposta de sucesso devolve nome, e-mail e perfil, nunca o hash da senha. |
+| RN08 | A tela e a API ficam no mesmo endereço: o Flask entrega `src/frontend/` e a tela chama `POST /auth/login` por URL relativa, sem precisar de CORS. |
+| RN09 | O navegador valida com as mesmas regras e mensagens do back-end. Campo vazio e e-mail em formato inválido nem chegam a ser enviados. |
+| RN10 | Enquanto a resposta não volta, o botão **Entrar** fica desabilitado ("Entrando..."), para não enviar duas vezes. Quando as credenciais não conferem (`401`), a senha é apagada do campo. |
+| RN11 | No sucesso, o navegador guarda **só a identidade** devolvida pela API (nome, e-mail e perfil): no `sessionStorage`, ou no `localStorage` se "Manter conectado" estiver marcado. A senha nunca é guardada. Em seguida, a pessoa vai para a home do perfil devolvido. |
+| RN12 | **Sair** apaga a identidade guardada e volta para a tela de login. |
+| RN13 | Toda chamada à API passa por `servicos/api.js`, que trata resposta sem JSON, requisição grande demais (`413`) e falha de rede, sempre com uma mensagem para o usuário. |
 
 ### Segurança das senhas
 
@@ -137,34 +151,43 @@ A proteção é menor contra senhas fracas ou muito comuns, que podem ser adivin
 
 | Arquivo | Responsabilidade |
 |---------|------------------|
-| `src/backend/app.py` | Cria a aplicação Flask e registra as rotas |
-| `src/backend/config.py` | Configurações (caminho do arquivo de usuários) |
+| `src/backend/app.py` | Cria a aplicação Flask, registra as rotas e entrega as telas de `src/frontend/` |
+| `src/backend/config.py` | Configurações (arquivo de usuários, pasta do front-end, limite de tamanho) |
 | `src/backend/auth/routes.py` | Rota `POST /auth/login`: recebe o JSON e devolve a resposta HTTP |
 | `src/backend/auth/service.py` | Regras do login: validação dos campos, conferência de senha e perfil |
 | `src/backend/auth/security.py` | Geração e verificação do hash das senhas (scrypt) |
 | `src/backend/repositories/usuario_repository.py` | Leitura dos usuários. Única camada que muda quando o banco de dados chegar |
 | `src/backend/data/usuarios.json` | Usuários de teste (só com o hash das senhas) |
 | `src/backend/tests/test_auth.py` | Testes de login válido, inválido e do armazenamento seguro |
+| `src/backend/tests/test_frontend.py` | Testes da entrega das telas pelo Flask |
+| `src/frontend/servicos/api.js` | Única porta para a API: monta o JSON, lê a resposta e traduz erros em mensagens |
+| `src/frontend/servicos/auth.js` | `login()`, `usuarioLogado()` e `sair()`: chama a API e guarda só a identidade |
+| `src/frontend/utils/validacao.js` | Validação do login no navegador, com as mesmas regras do back-end |
+| `src/frontend/login/login.js` | Envia o formulário, mostra "Entrando..." e as mensagens, e leva para a home do perfil |
+| `src/frontend/componentes/layout-home/layout-home.js` | Botão **Sair** das homes: apaga a identidade guardada |
+| `src/frontend/publicador/home.js` e `receptor/home.js` | Mostram o nome de quem entrou na saudação |
 
 ### Limitações conhecidas
 
 - Não há banco de dados: os usuários ficam em `data/usuarios.json`.
 - Não há cadastro de usuários nem recuperação de senha.
-- Não há sessão nem token: o login só responde se as credenciais conferem e qual é o perfil.
+- Não há sessão nem token: o login só responde se as credenciais conferem e qual é o perfil. A identidade guardada no navegador serve só para a tela saber quem entrou; ela **não protege** as homes, que continuam abrindo direto pelo endereço.
+- As homes continuam com dados de exemplo. Só o nome vem do login.
 - O bloqueio após 3 tentativas erradas (CT06 do fluxograma de login) ainda não foi implementado.
 - As mensagens separadas "Usuário não encontrado" (CT04) e "Senha incorreta" (CT05) do fluxograma foram trocadas por uma única mensagem genérica (RN04). Por isso, a opção "Criar conta" também não é oferecida a partir do erro.
 - O scrypt usa os parâmetros padrão do Werkzeug (N = 2¹⁵). A OWASP sugere N = 2¹⁷ para produção. Dá para aumentar mudando o `METODO_HASH` em `auth/security.py` (ex.: `scrypt:131072:8:1`).
-- A tela de login (issue #6) ainda não está ligada a esta API.
 
 ### Rastreabilidade
 
 | Issue | Requisito | Caso de uso |
 |-------|-----------|-------------|
-| #9 | A definir | UC01 Fazer login |
-| #6 | A definir | UC01 Fazer login |
+| #9 (back-end) | [RF01](../Artefatos_Requisitos/requisitos/Requisitos%20funcionais.md) | UC01 Fazer login |
+| #16 (integração com a tela) | [RF01](../Artefatos_Requisitos/requisitos/Requisitos%20funcionais.md) | UC01 Fazer login |
+| #6 (tela) | [RF01](../Artefatos_Requisitos/requisitos/Requisitos%20funcionais.md) | UC01 Fazer login |
 
 ### Histórico
 
 | Data | Autor(a) | Alteração |
 |------|----------|-----------|
 | 2026-11-11 | Enzo | Criação da documentação do back-end de login |
+| 2026-11-17 | Enzo | Integração da tela de login com a API (issue #16): como usar pela tela, regras RN08 a RN13, arquivos do front-end, limitações e rastreabilidade com RF01 |
