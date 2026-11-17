@@ -43,7 +43,7 @@ class Usuario(db.Model):
         ForeignKey("equipe.id", ondelete="SET NULL", use_alter=True)
     )
     ativo: Mapped[bool] = mapped_column(default=True)
-    # Base para o bloqueio após 3 tentativas do fluxograma de login (CT05).
+    # Base para o bloqueio após 3 tentativas do fluxograma de login.
     tentativas_login_falhas: Mapped[int] = mapped_column(default=0)
     criado_em: Mapped[datetime] = mapped_column(DataHoraUTC(), default=agora_utc)
 
