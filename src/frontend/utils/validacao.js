@@ -1,6 +1,6 @@
 /* ==========================================================================
    Validação do login no navegador, com as MESMAS regras do back-end
-   (src/backend/auth/service.py). Assim a tela não deixa passar algo que o
+   (src/backend/services/auth_service.py). Assim a tela não deixa passar algo que o
    servidor recusaria, e as mensagens são as mesmas dos dois lados.
    ========================================================================== */
 

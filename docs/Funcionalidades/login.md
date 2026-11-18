@@ -158,15 +158,14 @@ A proteção é menor contra senhas fracas ou muito comuns, que podem ser adivin
 |---------|------------------|
 | `src/backend/app.py` | Cria a aplicação Flask, registra as rotas e entrega as telas de `src/frontend/` |
 | `src/backend/config.py` | Configurações (conexão com o banco pela `DATABASE_URL`, pasta do front-end, limite de tamanho) |
-| `src/backend/auth/routes.py` | Rota `POST /auth/login`: recebe o JSON e devolve a resposta HTTP |
-| `src/backend/auth/service.py` | Regras do login: validação dos campos, conferência de senha e perfil |
-| `src/backend/auth/security.py` | Geração e verificação do hash das senhas (scrypt) |
+| `src/backend/controllers/auth_controller.py` | Controller: rota `POST /auth/login`, recebe o JSON e devolve a resposta HTTP |
+| `src/backend/services/auth_service.py` | Serviço: regras do login (validação dos campos, conferência de senha e perfil) |
+| `src/backend/services/security.py` | Serviço: geração e verificação do hash das senhas (scrypt) |
 | `src/backend/repositories/usuario_repository.py` | Busca o usuário ativo no banco e traduz o papel da conta para o perfil do login |
 | `src/backend/models/usuario.py` | Tabela `usuario` (ORM) |
 | `src/backend/seeds.py` | Usuários de teste, com as senhas vindas de variáveis de ambiente |
 | `src/backend/tests/test_auth.py` | Testes de login válido, inválido e do armazenamento seguro, com um banco SQLite em memória |
 | `src/backend/tests/test_frontend.py` | Testes da entrega das telas pelo Flask |
-| `src/backend/app.py` | Cria a aplicação Flask, registra as rotas e entrega as telas de `src/frontend/` |
 | `src/frontend/servicos/api.js` | Única porta para a API: monta o JSON, lê a resposta e traduz erros em mensagens |
 | `src/frontend/servicos/auth.js` | `login()`, `usuarioLogado()` e `sair()`: chama a API e guarda só a identidade |
 | `src/frontend/utils/validacao.js` | Validação do login no navegador, com as mesmas regras do back-end |
@@ -182,7 +181,7 @@ A proteção é menor contra senhas fracas ou muito comuns, que podem ser adivin
 - As homes continuam com dados de exemplo. Só o nome vem do login.
 - O bloqueio após 3 tentativas erradas (CT06 do fluxograma de login) ainda não foi implementado. A coluna `usuario.tentativas_login_falhas` já existe para isso.
 - As mensagens separadas "Usuário não encontrado" (CT04) e "Senha incorreta" (CT05) do fluxograma foram trocadas por uma única mensagem genérica (RN04). Por isso, a opção "Criar conta" também não é oferecida a partir do erro.
-- O scrypt usa os parâmetros padrão do Werkzeug (N = 2¹⁵). A OWASP sugere N = 2¹⁷ para produção. Dá para aumentar mudando o `METODO_HASH` em `auth/security.py` (ex.: `scrypt:131072:8:1`).
+- O scrypt usa os parâmetros padrão do Werkzeug (N = 2¹⁵). A OWASP sugere N = 2¹⁷ para produção. Dá para aumentar mudando o `METODO_HASH` em `services/security.py` (ex.: `scrypt:131072:8:1`).
 
 ### Rastreabilidade
 
@@ -200,3 +199,4 @@ A proteção é menor contra senhas fracas ou muito comuns, que podem ser adivin
 | 2026-11-11 | Enzo | Criação da documentação do back-end de login |
 | 2026-11-16 | Fernando | Usuários passam a vir do banco de dados (#13): seed, perfil derivado do papel (RN02), usuário desativado não entra (RN14) |
 | 2026-11-17 | Enzo | Integração da tela de login com a API (issue #16): como usar pela tela, regras RN08 a RN13, arquivos do front-end, limitações e rastreabilidade com RF01 |
+| 2026-11-18 | Fernando | Back-end em camadas com pastas próprias (ADR-008): `auth/` dividido em `controllers/` e `services/`; regra do usuário desativado renumerada de RN08 para RN14 |

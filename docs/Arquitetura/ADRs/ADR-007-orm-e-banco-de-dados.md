@@ -4,7 +4,7 @@
 - **Data:** 2026-11-12
 - **Quem decidiu:** Fernando (gerente de projetos), na issue de origem
 - **Origem:** [#13](https://github.com/morangotangos-team/feedberry/issues/13) (banco de dados), seção "Tecnologia escolhida"
-- **Relacionados:** [ADR-003](ADR-003-backend-flask-em-camadas.md) (depende), [ADR-004](ADR-004-hash-scrypt.md), [ADR-006](ADR-006-perfil-da-conta.md)
+- **Relacionados:** [ADR-003](ADR-003-backend-flask-em-camadas.md) (depende), [ADR-004](ADR-004-hash-scrypt.md), [ADR-006](ADR-006-perfil-da-conta.md), [ADR-008](ADR-008-camadas-do-backend-em-pastas.md)
 
 ## Contexto
 

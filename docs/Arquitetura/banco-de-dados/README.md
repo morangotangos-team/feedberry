@@ -103,7 +103,7 @@ Conta de quem usa o sistema. O líder também é colaborador (herança no diagra
 | `id` | INTEGER | ✅ | Chave primária |
 | `nome` | VARCHAR(120) | ✅ | |
 | `email` | VARCHAR(254) | ✅ | **Único**. Salvo em minúsculas e sem espaços nas pontas (`ck_usuario_email_minusculo`) |
-| `senha_hash` | VARCHAR(255) | ✅ | Só o hash scrypt (`auth/security.py`). A senha nunca é guardada |
+| `senha_hash` | VARCHAR(255) | ✅ | Só o hash scrypt (`services/security.py`). A senha nunca é guardada |
 | `papel` | `COLABORADOR` \| `LIDER` | ✅ | Padrão `COLABORADOR` |
 | `equipe_id` | INTEGER | | FK → `equipe.id`. Se a equipe for apagada, fica nulo (`SET NULL`) |
 | `ativo` | BOOLEAN | ✅ | Padrão `true`. Usuário **não é apagado**, só desativado. Desativado não consegue entrar |
@@ -184,7 +184,7 @@ Regra `ck_lembrete_tem_vinculo`: `feedback_id` **ou** `meta_id` precisa estar pr
 |-------|------|-------|
 | E-mail único | `UNIQUE` em `usuario.email` | `test_email_duplicado_e_rejeitado` |
 | E-mail em minúsculas | Aplicação (`@validates`) **e** `CHECK` no banco | `test_email_e_salvo_em_minusculas_e_sem_espacos`, `test_email_com_maiusculas_por_sql_direto_e_rejeitado` |
-| Só o hash da senha é salvo | `auth/security.py` (scrypt); seed lê a senha do ambiente | `test_banco_guarda_so_o_hash_da_senha`, `test_seed_guarda_so_o_hash_e_nao_loga_a_senha` |
+| Só o hash da senha é salvo | `services/security.py` (scrypt); seed lê a senha do ambiente | `test_banco_guarda_so_o_hash_da_senha`, `test_seed_guarda_so_o_hash_e_nao_loga_a_senha` |
 | Ninguém dá feedback a si mesmo | `CHECK` | `test_feedback_para_si_mesmo_e_rejeitado` |
 | Anônimo só do colaborador para o líder (UC13 estende UC12) | `CHECK` | `test_feedback_anonimo_do_lider_para_o_colaborador_e_rejeitado` |
 | Anônimo não guarda o autor | `CHECK` | `test_feedback_anonimo_com_autor_e_rejeitado`, `test_feedback_anonimo_do_colaborador_para_o_lider_e_aceito_sem_autor` |
@@ -237,3 +237,4 @@ Pontos da [#13](https://github.com/morangotangos-team/feedberry/issues/13) que a
 | Data | Autor(a) | Alteração |
 |------|----------|-----------|
 | 2026-11-16 | Fernando | Criação do banco (issue #13): modelos, migração inicial, seed e documentação |
+| 2026-11-18 | Fernando | Caminho do hash de senha atualizado para `services/security.py` (ADR-008) |
