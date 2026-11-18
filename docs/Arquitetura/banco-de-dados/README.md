@@ -43,7 +43,7 @@ SEED_SENHA_LIDER='<senha>' SEED_SENHA_COLABORADOR='<senha>' python seeds.py
 
 O seed cria a **Equipe de Teste**, liderada por `lider@exemplo.com` (papel `LIDER`), com `colaborador@exemplo.com` (papel `COLABORADOR`) como membro. Rodar de novo não duplica nada. Sem as duas variáveis, o seed para com erro e não grava nada.
 
-Enquanto o login usar perfil (ver [§ 6](#6-decisões-provisórias-e-pontos-em-aberto)), o líder entra como **publicador** e o colaborador como **receptor**.
+No login, o líder entra como **publicador** e o colaborador como **receptor** ([ADR-006](../ADRs/ADR-006-perfil-da-conta.md)).
 
 ### Mudei um modelo. E agora?
 
@@ -224,7 +224,7 @@ Pontos da [#13](https://github.com/morangotangos-team/feedberry/issues/13) que a
 
 | # | Ponto | Como está hoje | Se mudar |
 |---|-------|----------------|----------|
-| 1 | **Perfil do login × papel da conta** ([ADR-006](../ADRs/ADR-006-perfil-da-conta.md)) | O banco guarda só o `papel`. O `UsuarioRepository` traduz `LIDER` → `publicador` e `COLABORADOR` → `receptor`, e o login continua igual | Muda só o mapa `PERFIL_POR_PAPEL` em `repositories/usuario_repository.py` (ou o login deixa de pedir perfil) |
+| 1 | **Perfil do login × papel da conta** ([ADR-006](../ADRs/ADR-006-perfil-da-conta.md)) | Decidido para o MVP: o banco guarda só o `papel`, e o `UsuarioRepository` traduz `LIDER` → `publicador` e `COLABORADOR` → `receptor` | Canal líder ↔ gestor (depois do MVP): novo valor no enum `Papel` + migração, relação gestor → líder no banco, e o `PERFIL_POR_PAPEL` deixa de ser um para um |
 | 2 | **Líder vê o autor de feedback anônimo?** (dúvida 4) | Não: o autor **não é guardado** | Seria preciso guardar o autor criptografado ou em outra tabela, e revisar o `CHECK` de anonimato |
 | 3 | **Feedback entre colegas** (dúvida 10) | Fora do modelo | Novo valor no enum `TipoFeedback` + migração |
 | 4 | **Administrador / RH** (dúvida 2) | Fora do modelo | Novo valor no enum `Papel` + migração |
@@ -238,3 +238,4 @@ Pontos da [#13](https://github.com/morangotangos-team/feedberry/issues/13) que a
 |------|----------|-----------|
 | 2026-11-16 | Fernando | Criação do banco (issue #13): modelos, migração inicial, seed e documentação |
 | 2026-11-18 | Fernando | Caminho do hash de senha atualizado para `services/security.py` (ADR-008) |
+| 2026-11-18 | Fernando | Perfil do login × papel decidido para o MVP (ADR-006), com o que muda no canal líder ↔ gestor |

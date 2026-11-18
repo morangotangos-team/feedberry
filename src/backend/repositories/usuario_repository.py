@@ -10,9 +10,9 @@ from sqlalchemy import select
 from extensions import db
 from models import Papel, Usuario
 
-# Decisão provisória da issue #13 (ver ADR-007 e ADR-006): o login ainda usa
-# o perfil publicador/receptor, e o banco guarda o papel do domínio. A
-# tradução fica só aqui; se o grupo decidir outra coisa, muda só este mapa.
+# ADR-006: no MVP, publicador é o líder e receptor é o colaborador. O login
+# usa o perfil e o banco guarda o papel do domínio; a tradução fica só aqui.
+# Quando o canal líder <-> gestor entrar, este mapa deixa de ser um para um.
 PERFIL_POR_PAPEL = {
     Papel.LIDER: "publicador",
     Papel.COLABORADOR: "receptor",

@@ -17,13 +17,15 @@ O login permite que a pessoa entre no FeedBerry com o seu e-mail e a sua senha, 
 
 ### Quem usa
 
-- Publicador do feedback: entra para escrever e enviar feedbacks.
-- Receptor do feedback: entra para ver os feedbacks que recebeu.
+- **Líder**, pelo acesso do **publicador**: entra para escrever e enviar feedbacks.
+- **Colaborador**, pelo acesso do **receptor**: entra para ver os feedbacks que recebeu.
+
+Cada conta entra em um perfil só, que vem do cadastro (ADR-006).
 
 ### Como usar
 
 1. Abra o FeedBerry (com o servidor rodando, no endereço `http://127.0.0.1:5000/`).
-2. Escolha a aba do seu perfil: **Publicador** ou **Receptor**.
+2. Escolha a aba do seu perfil: **Publicador** se você for líder, **Receptor** se você for colaborador.
 3. Digite o seu e-mail e a sua senha.
 4. Se quiser continuar conectado depois de fechar o navegador, marque **Manter conectado**.
 5. Clique em **Entrar**. O botão mostra "Entrando..." enquanto o FeedBerry confere os dados.
@@ -102,7 +104,7 @@ Detalhes (Bash, PostgreSQL, começar do zero) em [Banco de dados § Como rodar](
 | # | Regra |
 |---|-------|
 | RN01 | O login usa e-mail e senha. O e-mail não diferencia maiúsculas de minúsculas e os espaços nas pontas são ignorados. |
-| RN02 | Cada usuário tem **um único perfil**: publicador ou receptor. O perfil vem do papel da conta: `LIDER` entra como publicador e `COLABORADOR` como receptor (decisão provisória, ver ADR-007 e ADR-006). |
+| RN02 | Cada usuário tem **um único perfil**: publicador ou receptor. O perfil vem do papel da conta: `LIDER` entra como publicador e `COLABORADOR` como receptor (ADR-006). |
 | RN03 | O front-end informa o perfil escolhido. O login só é aceito se esse perfil for o mesmo do cadastro. |
 | RN04 | E-mail inexistente, senha errada e perfil diferente do cadastrado retornam **a mesma mensagem genérica** ("E-mail ou senha inválidos."), para não revelar quais e-mails estão cadastrados. |
 | RN05 | Campos vazios e e-mail sem formato válido são recusados antes de consultar os usuários. |
@@ -175,7 +177,7 @@ A proteção é menor contra senhas fracas ou muito comuns, que podem ser adivin
 
 ### Limitações conhecidas
 
-- O perfil do login (publicador/receptor) é derivado do papel da conta (líder/colaborador) por uma decisão provisória, até o grupo fechar o ADR-006.
+- Cada pessoa entra em um perfil só: o líder não recebe feedback pela home e o colaborador não publica (ADR-006). O canal de comunicação entre líder e gestor, em que o líder também recebe, fica para depois do MVP.
 - Não há cadastro de usuários nem recuperação de senha.
 - Não há sessão nem token: o login só responde se as credenciais conferem e qual é o perfil. A identidade guardada no navegador serve só para a tela saber quem entrou; ela **não protege** as homes, que continuam abrindo direto pelo endereço.
 - As homes continuam com dados de exemplo. Só o nome vem do login.
@@ -200,3 +202,4 @@ A proteção é menor contra senhas fracas ou muito comuns, que podem ser adivin
 | 2026-11-16 | Fernando | Usuários passam a vir do banco de dados (#13): seed, perfil derivado do papel (RN02), usuário desativado não entra (RN14) |
 | 2026-11-17 | Enzo | Integração da tela de login com a API (issue #16): como usar pela tela, regras RN08 a RN13, arquivos do front-end, limitações e rastreabilidade com RF01 |
 | 2026-11-18 | Fernando | Back-end em camadas com pastas próprias (ADR-008): `auth/` dividido em `controllers/` e `services/`; regra do usuário desativado renumerada de RN08 para RN14 |
+| 2026-11-18 | Fernando | Perfil decidido para o MVP (ADR-006): publicador é o líder e receptor é o colaborador. "Quem usa", passo a passo, RN02 e limitações atualizados |

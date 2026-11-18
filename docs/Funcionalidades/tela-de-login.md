@@ -5,7 +5,7 @@
 | **Status** | Em revisão (integrada à API de login na #16) |
 | **Perfis** | Publicador / Receptor |
 | **Issue** | #6 · #16 (integração com a API) |
-| **Última atualização** | 2026-11-17 |
+| **Última atualização** | 2026-11-18 |
 
 ---
 
@@ -17,13 +17,13 @@ A tela de login é a porta de entrada do FeedBerry. Nela a pessoa escolhe o tipo
 
 ### Quem usa
 
-- Publicador do feedback: entra para escrever e enviar feedbacks para o time.
-- Receptor do feedback: entra para ler os feedbacks que recebeu e acompanhar as suas metas.
+- **Líder**, pelo acesso do **publicador**: entra para escrever e enviar feedbacks para o time.
+- **Colaborador**, pelo acesso do **receptor**: entra para ler os feedbacks que recebeu e acompanhar as suas metas.
 
 ### Como usar
 
 1. Abra o FeedBerry. A tela começa no **Acesso do publicador**.
-2. Se você for receptor, clique na aba **Receptor**, no alto do formulário. O título muda para **Acesso do receptor**.
+2. Se você for colaborador, clique na aba **Receptor**, no alto do formulário. O título muda para **Acesso do receptor**.
 3. Digite o seu e-mail.
 4. Digite a sua senha. Para conferir o que digitou, clique no olho (👁️) ao lado do campo; clique de novo para esconder.
 5. Clique em **Entrar**. Se os dados conferirem, você vai para a home do seu perfil. O passo a passo completo, com "Manter conectado" e **Sair**, está em [Login](login.md).
@@ -53,6 +53,7 @@ O botão **🌙 Tema noturno**, no canto superior direito, troca entre o tema cl
 | "E-mail inválido." | O e-mail está sem `@` ou sem domínio (ex.: `maria.com`). Confira o que foi digitado. |
 | "E-mail ou senha inválidos." | Os dados não conferem, ou você está na aba do outro perfil. As demais mensagens vindas do servidor estão em [Login](login.md). |
 | "Recuperação de senha em breve" | O link **Esqueci minha senha** ainda é só visual. |
+| Não sei qual aba escolher | Líder usa **Publicador**; colaborador usa **Receptor**. |
 | Não sei em qual acesso estou | Veja a aba destacada e o título do formulário ("Acesso do publicador" ou "Acesso do receptor"). |
 
 ---
@@ -134,3 +135,4 @@ Só as telas, sem API (o **Entrar** mostra erro de conexão), dentro de `src/fro
 | 2026-11-13 | Paula Silvério de Castro | Criação da documentação da tela de login (o código entrou pelos PRs #14 e #21) |
 | 2026-11-16 | Paula Silvério de Castro | Rastreabilidade: requisito "A definir" trocado por RF01 (issue #24) |
 | 2026-11-17 | Enzo | Integração com a API (issue #16): status, passo a passo, mensagens, como rodar, RN04, RN05, RN09, arquivos e limitações |
+| 2026-11-18 | Fernando | "Quem usa", passo a passo e dúvidas comuns: líder entra como publicador e colaborador como receptor (ADR-006) |

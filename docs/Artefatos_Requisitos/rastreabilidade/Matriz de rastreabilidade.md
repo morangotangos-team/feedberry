@@ -91,7 +91,7 @@ Itens que existem no código (ou em PR aberto) e não vêm de nenhum requisito n
 
 | Item | Onde está | Observação |
 |------|-----------|------------|
-| Perfis **publicador / receptor** (abas do login e campo `perfil` da API) | `src/frontend/index.html`, `src/frontend/login/login.js` · `src/backend/auth/` *(PR #12)* | A análise usa os atores **Líder / Colaborador**. Decisão em aberto no ADR-006 *(PR #29)* |
+| Perfis **publicador / receptor** (abas do login e campo `perfil` da API) | `src/frontend/index.html`, `src/frontend/login/login.js` · `src/backend/controllers/`, `src/backend/services/` *(PR #12, movidos no PR #30)* | A análise usa os atores **Líder / Colaborador**. ADR-006 *(PR #30)*: no MVP, publicador é o líder e receptor é o colaborador |
 | Tema claro / escuro | `src/frontend/utils/tema.js`, `tema-inicial.js` | Decisão da equipe; não aparece nos questionários nem na entrevista |
 | "Manter conectado" | `src/frontend/index.html` | Só visual |
 | "Esqueci minha senha" (recuperação de senha) | `src/frontend/index.html`, `src/frontend/login/login.js` | Só visual. Pode responder à dúvida 9 da análise |
@@ -106,7 +106,7 @@ Itens que existem no código (ou em PR aberto) e não vêm de nenhum requisito n
 
 1. **E2 sem transcrição:** a gravação da reunião não foi usada como fonte. Quando for transcrita, a coluna **Fonte** deve ser complementada.
 2. **FL × back-end:** o fluxograma prevê as mensagens "Usuário não encontrado" (CT04) e "Senha incorreta" (CT05); o back-end responde com uma mensagem única (RNF03). O fluxograma precisa ser atualizado ou a decisão registrada.
-3. **RF12 × perfis:** o colaborador entra como **receptor**, mas o botão **Enviar feedback** está só na home do **publicador**. Com os perfis atuais, o colaborador não tem por onde enviar feedback ao líder (RF12, RF13). Depende do ADR-006.
+3. **RF12 × perfis:** o colaborador entra como **receptor**, mas o botão **Enviar feedback** está só na home do **publicador**. Com os perfis do MVP (ADR-006), o colaborador não tem por onde enviar feedback ao líder (RF12, RF13). Continua em aberto.
 4. **Rastreabilidade nos documentos de funcionalidade:** `home-publicador.md` e `home-receptor.md` não têm a tabela de rastreabilidade do template de funcionalidade; só `tela-de-login.md` tem a tabela (RF01).
 5. **Dúvidas abertas com o cliente:** as 10 dúvidas da seção 5 da análise continuam sem resposta e afetam RF02, RF06, RF08, RF13 e RF14.
 

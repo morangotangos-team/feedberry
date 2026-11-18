@@ -32,7 +32,7 @@ Como a decisão foi aplicada:
 - Datas e horas são gravadas sempre em UTC, por um tipo próprio (`DataHoraUTC`).
 - As constraints seguem uma convenção de nomes (`pk_`, `fk_`, `uq_`, `ck_`, `ix_`), para as migrações conseguirem alterá-las depois.
 - O `UsuarioRepository` passou a usar o ORM, mantendo o método `buscar_por_email` e o mesmo formato de retorno, então as rotas e o `AuthService` não mudaram.
-- **Decisão provisória ligada ao [ADR-006](ADR-006-perfil-da-conta.md):** a conta guarda `papel = COLABORADOR | LIDER`, e o repositório traduz para o perfil que o login usa hoje (`LIDER` → `publicador`, `COLABORADOR` → `receptor`). Se o grupo decidir outra coisa, muda só esse mapa.
+- **Ligado ao [ADR-006](ADR-006-perfil-da-conta.md):** a conta guarda `papel = COLABORADOR | LIDER`, e o repositório traduz para o perfil que o login usa (`LIDER` → `publicador`, `COLABORADOR` → `receptor`). Era uma decisão provisória na #13; o ADR-006 a confirmou para o MVP.
 
 O modelo, o dicionário de dados e o passo a passo estão em [`docs/Arquitetura/banco-de-dados/`](../banco-de-dados/README.md).
 
