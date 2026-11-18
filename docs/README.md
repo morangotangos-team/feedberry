@@ -15,5 +15,6 @@ Esta pasta reúne a documentação do projeto **FeedBerry**.
 | [Requisitos não funcionais](Artefatos_Requisitos/requisitos/Requisitos%20nao%20funcionais.md) | RNF01 a RNF08, com a fonte de cada um |
 | [Matriz de rastreabilidade](Artefatos_Requisitos/rastreabilidade/Matriz%20de%20rastreabilidade.md) | Requisito → caso de uso → issue → documento → código → situação |
 | [Funcionalidades](Funcionalidades/README.md) | Documentação de cada funcionalidade |
+| [Decisões de arquitetura (ADRs)](Arquitetura/ADRs/README.md) | Registros das decisões de arquitetura, com contexto, consequências e alternativas |
 | [Documentação de funcionalidades](Processos_De_Desenvolvimento/Documentacao%20de%20funcionalidades.md) | Como documentar uma funcionalidade |
 | [Padrão de commit e GitFlow](Processos_De_Desenvolvimento/Padrao%20de%20commit%20e%20GitFlow.md) | Regras de commit, branch e PR |
