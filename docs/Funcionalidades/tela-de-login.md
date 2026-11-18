@@ -4,7 +4,7 @@
 |---|---|
 | **Status** | Em revisão (integrada à API de login na #16) |
 | **Perfis** | Publicador / Receptor |
-| **Issue** | #6 · #16 (integração com a API) |
+| **Issue** | #6 · #16 (integração com a API) · #36 (envio por POST) |
 | **Última atualização** | 2026-11-18 |
 
 ---
@@ -55,6 +55,7 @@ O botão **🌙 Tema noturno**, no canto superior direito, troca entre o tema cl
 | "Recuperação de senha em breve" | O link **Esqueci minha senha** ainda é só visual. |
 | Não sei qual aba escolher | Líder usa **Publicador**; colaborador usa **Receptor**. |
 | Não sei em qual acesso estou | Veja a aba destacada e o título do formulário ("Acesso do publicador" ou "Acesso do receptor"). |
+| Cliquei em **Entrar** e nada aconteceu (ou apareceu "Method Not Allowed") | A tela foi aberta pelo arquivo `index.html` (endereço começando com `file:///`) ou o JavaScript não carregou. Abra a tela por http://127.0.0.1:5000/, com o `python app.py` rodando em `src/backend/`. Aberta pelo arquivo, o botão **Entrar** não funciona. |
 
 ---
 
@@ -96,6 +97,7 @@ Só as telas, sem API (o **Entrar** mostra erro de conexão), dentro de `src/fro
 | RN09 | Com os campos válidos, a tela envia as credenciais para a API e segue as regras RN08 a RN13 de [Login](login.md). A senha nunca é guardada. |
 | RN10 | Cores e fontes vêm de `estilos/tokens.css`. A tela funciona nos temas claro e escuro. |
 | RN11 | Abaixo de 820 px de largura o layout passa de duas colunas para uma. |
+| RN12 | Os dois formulários são enviados por POST (`method="post"`), para a senha nunca aparecer na URL, mesmo se o JavaScript falhar. Sem JS, o navegador envia os dados no corpo da requisição para o próprio endereço da tela, e o Flask responde 405 sem expor nada; o caminho normal continua sendo o envio pela API (RN09). |
 
 ### Arquivos envolvidos
 
@@ -136,3 +138,4 @@ Só as telas, sem API (o **Entrar** mostra erro de conexão), dentro de `src/fro
 | 2026-11-16 | Paula Silvério de Castro | Rastreabilidade: requisito "A definir" trocado por RF01 (issue #24) |
 | 2026-11-17 | Enzo | Integração com a API (issue #16): status, passo a passo, mensagens, como rodar, RN04, RN05, RN09, arquivos e limitações |
 | 2026-11-18 | Fernando | "Quem usa", passo a passo e dúvidas comuns: líder entra como publicador e colaborador como receptor (ADR-006) |
+| 2026-11-18 | Paula Silvério de Castro | Formulários enviados por POST para a senha não ir para a URL (issue #36): RN12 e dúvida comum sobre abrir a tela pelo arquivo |
