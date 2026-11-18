@@ -14,9 +14,10 @@ Um ADR (*Architecture Decision Record*) registra **uma** decisão de arquitetura
 | [ADR-003](ADR-003-backend-flask-em-camadas.md) | Back-end em Flask, organizado em camadas | Proposto | [#9](https://github.com/morangotangos-team/feedberry/issues/9), [PR #12](https://github.com/morangotangos-team/feedberry/pull/12) |
 | [ADR-004](ADR-004-hash-scrypt.md) | Hash de senha com scrypt | Proposto | [#9](https://github.com/morangotangos-team/feedberry/issues/9), [PR #12](https://github.com/morangotangos-team/feedberry/pull/12) |
 | [ADR-005](ADR-005-frontend-servido-pelo-flask.md) | Front-end servido pelo Flask, na mesma origem da API | Proposto | [#16](https://github.com/morangotangos-team/feedberry/issues/16) |
-| [ADR-006](ADR-006-perfil-da-conta.md) | Perfil da conta: publicador/receptor ou colaborador/líder | Em aberto | [#13](https://github.com/morangotangos-team/feedberry/issues/13), [#16](https://github.com/morangotangos-team/feedberry/issues/16) |
+| [ADR-006](ADR-006-perfil-da-conta.md) | Perfil da conta: publicador é o líder e receptor é o colaborador | Proposto | [#13](https://github.com/morangotangos-team/feedberry/issues/13), [#16](https://github.com/morangotangos-team/feedberry/issues/16), [PR #30](https://github.com/morangotangos-team/feedberry/pull/30) |
+| [ADR-007](ADR-007-orm-e-banco-de-dados.md) | ORM e banco de dados: SQLAlchemy, Flask-Migrate e SQLite | Proposto | [#13](https://github.com/morangotangos-team/feedberry/issues/13), [PR #30](https://github.com/morangotangos-team/feedberry/pull/30) |
+| [ADR-008](ADR-008-camadas-do-backend-em-pastas.md) | Cada camada do back-end em uma pasta própria | Proposto | [#13](https://github.com/morangotangos-team/feedberry/issues/13), [PR #30](https://github.com/morangotangos-team/feedberry/pull/30) |
 
-> ℹ️ A [#13](https://github.com/morangotangos-team/feedberry/issues/13) pede um ADR da escolha do ORM e do banco em `docs/Arquitetura/ADR-001-orm-e-banco-de-dados.md`. Quando ele for escrito, deve ficar nesta pasta com o próximo número livre (ADR-007), porque o ADR-001 já existe.
 
 ## Quando criar um ADR
 

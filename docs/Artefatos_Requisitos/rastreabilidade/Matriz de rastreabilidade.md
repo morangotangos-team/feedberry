@@ -60,8 +60,8 @@ Caminhos de código marcados com *(PR #n)* ainda não estão na `develop`.
 | Requisito | Fonte | Issue | Documento | Código | Situação |
 |-----------|-------|-------|-----------|--------|----------|
 | **RNF01** Usabilidade: registrar um feedback deve ser simples e rápido | E1-11, E1-13 | — | — | — | ⛔ Sem issue (sem critério de medição definido) |
-| **RNF02** Segurança: senha guardada só como hash, nunca em texto puro | DE ([#9](https://github.com/morangotangos-team/feedberry/issues/9)) | [#9](https://github.com/morangotangos-team/feedberry/issues/9) | `Funcionalidades/login.md` (RN06) *(PR #12)* · ADR-004 *(PR #29)* | `src/backend/auth/security.py` *(PR #12)* | 🔵 Em revisão |
-| **RNF03** Segurança: a resposta do login não revela se o e-mail está cadastrado | DE ([#9](https://github.com/morangotangos-team/feedberry/issues/9)) | [#9](https://github.com/morangotangos-team/feedberry/issues/9) | `Funcionalidades/login.md` (RN04) *(PR #12)* | `src/backend/auth/service.py` *(PR #12)* | 🔵 Em revisão. Diverge do FL (CT04, CT05) |
+| **RNF02** Segurança: senha guardada só como hash, nunca em texto puro | DE ([#9](https://github.com/morangotangos-team/feedberry/issues/9)) | [#9](https://github.com/morangotangos-team/feedberry/issues/9) | `Funcionalidades/login.md` (RN06) *(PR #12)* · ADR-004 *(PR #29)* | `src/backend/services/security.py` *(PR #12, movido no PR #30)* | 🔵 Em revisão |
+| **RNF03** Segurança: a resposta do login não revela se o e-mail está cadastrado | DE ([#9](https://github.com/morangotangos-team/feedberry/issues/9)) | [#9](https://github.com/morangotangos-team/feedberry/issues/9) | `Funcionalidades/login.md` (RN04) *(PR #12)* | `src/backend/services/auth_service.py` *(PR #12, movido no PR #30)* | 🔵 Em revisão. Diverge do FL (CT04, CT05) |
 | **RNF04** Privacidade: o autor de um feedback anônimo não é guardado nem exibido | Q2-L (imparcialidade, privacidade) | [#15](https://github.com/morangotangos-team/feedberry/issues/15) · [#13](https://github.com/morangotangos-team/feedberry/issues/13) | [home-receptor.md](../../Funcionalidades/home-receptor.md) | `src/frontend/componentes/card-feedback/` · `src/backend/models/feedback.py` *(PR #30)* | 🟡 Parcial. Depende da dúvida 4 da análise |
 | **RNF05** Responsividade: as telas funcionam em computador e celular | DE ([#6](https://github.com/morangotangos-team/feedberry/issues/6), [#15](https://github.com/morangotangos-team/feedberry/issues/15)) | [#6](https://github.com/morangotangos-team/feedberry/issues/6) · [#15](https://github.com/morangotangos-team/feedberry/issues/15) | [tela-de-login.md](../../Funcionalidades/tela-de-login.md) (RN11) · homes | `src/frontend/login/login.css`, `src/frontend/componentes/layout-home/` | ✅ Atendido nas telas existentes |
 | **RNF06** Acessibilidade: navegação por teclado e suporte a leitor de tela no login | DE ([#6](https://github.com/morangotangos-team/feedberry/issues/6)) | [#6](https://github.com/morangotangos-team/feedberry/issues/6) | [tela-de-login.md](../../Funcionalidades/tela-de-login.md) (RN02, RN06, RN07) | `src/frontend/login/login.js` | ✅ Atendido na tela de login |
@@ -91,7 +91,7 @@ Itens que existem no código (ou em PR aberto) e não vêm de nenhum requisito n
 
 | Item | Onde está | Observação |
 |------|-----------|------------|
-| Perfis **publicador / receptor** (abas do login e campo `perfil` da API) | `src/frontend/index.html`, `src/frontend/login/login.js` · `src/backend/auth/` *(PR #12)* | A análise usa os atores **Líder / Colaborador**. Decisão em aberto no ADR-006 *(PR #29)* |
+| Perfis **publicador / receptor** (abas do login e campo `perfil` da API) | `src/frontend/index.html`, `src/frontend/login/login.js` · `src/backend/controllers/`, `src/backend/services/` *(PR #12, movidos no PR #30)* | A análise usa os atores **Líder / Colaborador**. ADR-006 *(PR #30)*: no MVP, publicador é o líder e receptor é o colaborador |
 | Tema claro / escuro | `src/frontend/utils/tema.js`, `tema-inicial.js` | Decisão da equipe; não aparece nos questionários nem na entrevista |
 | "Manter conectado" | `src/frontend/index.html` | Só visual |
 | "Esqueci minha senha" (recuperação de senha) | `src/frontend/index.html`, `src/frontend/login/login.js` | Só visual. Pode responder à dúvida 9 da análise |
@@ -106,7 +106,7 @@ Itens que existem no código (ou em PR aberto) e não vêm de nenhum requisito n
 
 1. **E2 sem transcrição:** a gravação da reunião não foi usada como fonte. Quando for transcrita, a coluna **Fonte** deve ser complementada.
 2. **FL × back-end:** o fluxograma prevê as mensagens "Usuário não encontrado" (CT04) e "Senha incorreta" (CT05); o back-end responde com uma mensagem única (RNF03). O fluxograma precisa ser atualizado ou a decisão registrada.
-3. **RF12 × perfis:** o colaborador entra como **receptor**, mas o botão **Enviar feedback** está só na home do **publicador**. Com os perfis atuais, o colaborador não tem por onde enviar feedback ao líder (RF12, RF13). Depende do ADR-006.
+3. **RF12 × perfis:** o colaborador entra como **receptor**, mas o botão **Enviar feedback** está só na home do **publicador**. Com os perfis do MVP (ADR-006), o colaborador não tem por onde enviar feedback ao líder (RF12, RF13). Continua em aberto.
 4. **Rastreabilidade nos documentos de funcionalidade:** `home-publicador.md` e `home-receptor.md` não têm a tabela de rastreabilidade do template de funcionalidade; só `tela-de-login.md` tem a tabela (RF01).
 5. **Dúvidas abertas com o cliente:** as 10 dúvidas da seção 5 da análise continuam sem resposta e afetam RF02, RF06, RF08, RF13 e RF14.
 

@@ -4,8 +4,8 @@
 |---|---|
 | **Status** | Em revisão |
 | **Perfis** | Publicador / Receptor |
-| **Issue** | #9 (back-end) · #16 (integração com a tela) · #6 (tela) |
-| **Última atualização** | 2026-11-17 |
+| **Issue** | #9 (back-end) · #16 (integração com a tela) · #6 (tela) · #13 (banco de dados) |
+| **Última atualização** | 2026-11-18 |
 
 ---
 
@@ -17,13 +17,15 @@ O login permite que a pessoa entre no FeedBerry com o seu e-mail e a sua senha, 
 
 ### Quem usa
 
-- Publicador do feedback: entra para escrever e enviar feedbacks.
-- Receptor do feedback: entra para ver os feedbacks que recebeu.
+- **Líder**, pelo acesso do **publicador**: entra para escrever e enviar feedbacks.
+- **Colaborador**, pelo acesso do **receptor**: entra para ver os feedbacks que recebeu.
+
+Cada conta entra em um perfil só, que vem do cadastro (ADR-006).
 
 ### Como usar
 
 1. Abra o FeedBerry (com o servidor rodando, no endereço `http://127.0.0.1:5000/`).
-2. Escolha a aba do seu perfil: **Publicador** ou **Receptor**.
+2. Escolha a aba do seu perfil: **Publicador** se você for líder, **Receptor** se você for colaborador.
 3. Digite o seu e-mail e a sua senha.
 4. Se quiser continuar conectado depois de fechar o navegador, marque **Manter conectado**.
 5. Clique em **Entrar**. O botão mostra "Entrando..." enquanto o FeedBerry confere os dados.
@@ -50,7 +52,7 @@ Os prints da tela de login estão em [Tela de login](tela-de-login.md). Depois d
 
 ### Objetivo
 
-Conferir o e-mail, a senha e o perfil de quem quer entrar, sem nunca guardar a senha em texto puro. Ainda não há banco de dados, então os usuários ficam temporariamente em um arquivo JSON.
+Conferir o e-mail, a senha e o perfil de quem quer entrar, sem nunca guardar a senha em texto puro. Os usuários ficam na tabela `usuario` do banco de dados (issue #13; ver [Banco de dados](../Arquitetura/banco-de-dados/README.md)).
 
 ### Como rodar e testar
 
@@ -61,6 +63,8 @@ python -m venv .venv
 .venv\Scripts\activate        # Windows (no Linux/macOS: source .venv/bin/activate)
 pip install -r requirements.txt
 cd src/backend
+flask db upgrade              # cria o banco em src/backend/instance/feedberry.db
+python seeds.py               # cria os usuários de teste (ver abaixo)
 python app.py                 # sobe a tela e a API em http://127.0.0.1:5000
 python -m pytest              # roda os testes
 ```
@@ -72,7 +76,7 @@ Para ligar o modo debug na sua máquina, defina `FLASK_DEBUG=1` antes de `python
 **Requisição**: `POST /auth/login` com corpo JSON:
 
 ```json
-{ "email": "publicador@exemplo.com", "senha": "<senha>", "perfil": "publicador" }
+{ "email": "lider@exemplo.com", "senha": "<senha>", "perfil": "publicador" }
 ```
 
 **Respostas**:
@@ -87,22 +91,24 @@ Para ligar o modo debug na sua máquina, defina `FLASK_DEBUG=1` antes de `python
 | Corpo que não é JSON | `400` | `{"sucesso": false, "mensagem": "Envie e-mail, senha e perfil em JSON."}` |
 | Requisição maior que 16 KB | `413` | Resposta padrão do Flask |
 
-**Usuários de teste**: o arquivo `src/backend/data/usuarios.json` tem um publicador (`publicador@exemplo.com`) e um receptor (`receptor@exemplo.com`). Como as senhas não podem ficar no repositório, peça-as a quem criou o arquivo, ou gere o hash de uma senha sua e troque o `senha_hash` do usuário:
+**Usuários de teste**: o `seeds.py` cria `lider@exemplo.com` (entra como **publicador**), `colaborador@exemplo.com` (entra como **receptor**) e `validacao@exemplo.com` (Usuário de Validação, entra como **publicador**; é o que o grupo usa para testar pela tela). Cada pessoa escolhe as senhas da sua máquina pelas variáveis de ambiente, que nunca vão para o repositório:
 
-```bash
-python -c "from werkzeug.security import generate_password_hash; print(generate_password_hash(input('Senha: '), method='scrypt'))"
+```powershell
+$env:SEED_SENHA_LIDER = "<senha>"; $env:SEED_SENHA_COLABORADOR = "<senha>"; $env:SEED_SENHA_VALIDACAO = "<senha>"; python seeds.py
 ```
+
+Detalhes (Bash, PostgreSQL, começar do zero) em [Banco de dados § Como rodar](../Arquitetura/banco-de-dados/README.md#1-como-rodar).
 
 ### Regras de negócio
 
 | # | Regra |
 |---|-------|
 | RN01 | O login usa e-mail e senha. O e-mail não diferencia maiúsculas de minúsculas e os espaços nas pontas são ignorados. |
-| RN02 | Cada usuário tem **um único perfil**: publicador ou receptor. |
+| RN02 | Cada usuário tem **um único perfil**: publicador ou receptor. O perfil vem do papel da conta: `LIDER` entra como publicador e `COLABORADOR` como receptor (ADR-006). |
 | RN03 | O front-end informa o perfil escolhido. O login só é aceito se esse perfil for o mesmo do cadastro. |
 | RN04 | E-mail inexistente, senha errada e perfil diferente do cadastrado retornam **a mesma mensagem genérica** ("E-mail ou senha inválidos."), para não revelar quais e-mails estão cadastrados. |
 | RN05 | Campos vazios e e-mail sem formato válido são recusados antes de consultar os usuários. |
-| RN06 | Nenhuma senha é guardada em texto puro (nem no código, nem no arquivo de dados, nem em logs). Só o hash é guardado. |
+| RN06 | Nenhuma senha é guardada em texto puro (nem no código, nem no banco, nem no seed, nem nas migrações, nem em logs). Só o hash é guardado. |
 | RN07 | A resposta de sucesso devolve nome, e-mail e perfil, nunca o hash da senha. |
 | RN08 | A tela e a API ficam no mesmo endereço: o Flask entrega `src/frontend/` e a tela chama `POST /auth/login` por URL relativa, sem precisar de CORS. |
 | RN09 | O navegador valida com as mesmas regras e mensagens do back-end. Campo vazio e e-mail em formato inválido nem chegam a ser enviados. |
@@ -110,6 +116,7 @@ python -c "from werkzeug.security import generate_password_hash; print(generate_
 | RN11 | No sucesso, o navegador guarda **só a identidade** devolvida pela API (nome, e-mail e perfil): no `sessionStorage`, ou no `localStorage` se "Manter conectado" estiver marcado. A senha nunca é guardada. Em seguida, a pessoa vai para a home do perfil devolvido. |
 | RN12 | **Sair** apaga a identidade guardada e volta para a tela de login. |
 | RN13 | Toda chamada à API passa por `servicos/api.js`, que trata resposta sem JSON, requisição grande demais (`413`) e falha de rede, sempre com uma mensagem para o usuário. |
+| RN14 | Usuário desativado (`ativo = false`) não consegue entrar e recebe a mesma mensagem genérica da RN04. Usuários não são apagados, só desativados. |
 
 ### Segurança das senhas
 
@@ -136,9 +143,9 @@ Além disso, quando o e-mail não existe, o sistema verifica a senha contra um h
 | bcrypt (`bcrypt`) | Também é seguro, mas exige dependência nova e considera só os primeiros 72 bytes da senha. |
 | PBKDF2 (também disponível no Werkzeug) | É seguro com muitas iterações, mas usa pouca memória, o que facilita ataques com GPU em comparação com o scrypt. |
 
-**Como a escolha protege as senhas se o arquivo de dados vazar?**
+**Como a escolha protege as senhas se o banco de dados vazar?**
 
-O `usuarios.json` guarda só o hash scrypt e o salt de cada usuário, nunca a senha. Quem obtiver o arquivo:
+A coluna `usuario.senha_hash` guarda só o hash scrypt e o salt de cada usuário, nunca a senha. Quem obtiver uma cópia do banco:
 
 1. **não consegue reverter o hash**: scrypt é uma função de mão única;
 2. **não consegue usar tabelas pré-calculadas**: cada senha tem um salt único;
@@ -152,13 +159,14 @@ A proteção é menor contra senhas fracas ou muito comuns, que podem ser adivin
 | Arquivo | Responsabilidade |
 |---------|------------------|
 | `src/backend/app.py` | Cria a aplicação Flask, registra as rotas e entrega as telas de `src/frontend/` |
-| `src/backend/config.py` | Configurações (arquivo de usuários, pasta do front-end, limite de tamanho) |
-| `src/backend/auth/routes.py` | Rota `POST /auth/login`: recebe o JSON e devolve a resposta HTTP |
-| `src/backend/auth/service.py` | Regras do login: validação dos campos, conferência de senha e perfil |
-| `src/backend/auth/security.py` | Geração e verificação do hash das senhas (scrypt) |
-| `src/backend/repositories/usuario_repository.py` | Leitura dos usuários. Única camada que muda quando o banco de dados chegar |
-| `src/backend/data/usuarios.json` | Usuários de teste (só com o hash das senhas) |
-| `src/backend/tests/test_auth.py` | Testes de login válido, inválido e do armazenamento seguro |
+| `src/backend/config.py` | Configurações (conexão com o banco pela `DATABASE_URL`, pasta do front-end, limite de tamanho) |
+| `src/backend/controllers/auth_controller.py` | Controller: rota `POST /auth/login`, recebe o JSON e devolve a resposta HTTP |
+| `src/backend/services/auth_service.py` | Serviço: regras do login (validação dos campos, conferência de senha e perfil) |
+| `src/backend/services/security.py` | Serviço: geração e verificação do hash das senhas (scrypt) |
+| `src/backend/repositories/usuario_repository.py` | Busca o usuário ativo no banco e traduz o papel da conta para o perfil do login |
+| `src/backend/models/usuario.py` | Tabela `usuario` (ORM) |
+| `src/backend/seeds.py` | Usuários de teste, com as senhas vindas de variáveis de ambiente |
+| `src/backend/tests/test_auth.py` | Testes de login válido, inválido e do armazenamento seguro, com um banco SQLite em memória |
 | `src/backend/tests/test_frontend.py` | Testes da entrega das telas pelo Flask |
 | `src/frontend/servicos/api.js` | Única porta para a API: monta o JSON, lê a resposta e traduz erros em mensagens |
 | `src/frontend/servicos/auth.js` | `login()`, `usuarioLogado()` e `sair()`: chama a API e guarda só a identidade |
@@ -169,13 +177,13 @@ A proteção é menor contra senhas fracas ou muito comuns, que podem ser adivin
 
 ### Limitações conhecidas
 
-- Não há banco de dados: os usuários ficam em `data/usuarios.json`.
+- Cada pessoa entra em um perfil só: o líder não recebe feedback pela home e o colaborador não publica (ADR-006). O canal de comunicação entre líder e gestor, em que o líder também recebe, fica para depois do MVP.
 - Não há cadastro de usuários nem recuperação de senha.
 - Não há sessão nem token: o login só responde se as credenciais conferem e qual é o perfil. A identidade guardada no navegador serve só para a tela saber quem entrou; ela **não protege** as homes, que continuam abrindo direto pelo endereço.
 - As homes continuam com dados de exemplo. Só o nome vem do login.
-- O bloqueio após 3 tentativas erradas (CT06 do fluxograma de login) ainda não foi implementado.
+- O bloqueio após 3 tentativas erradas (CT06 do fluxograma de login) ainda não foi implementado. A coluna `usuario.tentativas_login_falhas` já existe para isso.
 - As mensagens separadas "Usuário não encontrado" (CT04) e "Senha incorreta" (CT05) do fluxograma foram trocadas por uma única mensagem genérica (RN04). Por isso, a opção "Criar conta" também não é oferecida a partir do erro.
-- O scrypt usa os parâmetros padrão do Werkzeug (N = 2¹⁵). A OWASP sugere N = 2¹⁷ para produção. Dá para aumentar mudando o `METODO_HASH` em `auth/security.py` (ex.: `scrypt:131072:8:1`).
+- O scrypt usa os parâmetros padrão do Werkzeug (N = 2¹⁵). A OWASP sugere N = 2¹⁷ para produção. Dá para aumentar mudando o `METODO_HASH` em `services/security.py` (ex.: `scrypt:131072:8:1`).
 
 ### Rastreabilidade
 
@@ -184,10 +192,15 @@ A proteção é menor contra senhas fracas ou muito comuns, que podem ser adivin
 | #9 (back-end) | [RF01](../Artefatos_Requisitos/requisitos/Requisitos%20funcionais.md) | UC01 Fazer login |
 | #16 (integração com a tela) | [RF01](../Artefatos_Requisitos/requisitos/Requisitos%20funcionais.md) | UC01 Fazer login |
 | #6 (tela) | [RF01](../Artefatos_Requisitos/requisitos/Requisitos%20funcionais.md) | UC01 Fazer login |
+| #13 (banco de dados) | [RF01](../Artefatos_Requisitos/requisitos/Requisitos%20funcionais.md) | UC01 Fazer login, UC02 Criar conta (tabela `usuario`) |
 
 ### Histórico
 
 | Data | Autor(a) | Alteração |
 |------|----------|-----------|
 | 2026-11-11 | Enzo | Criação da documentação do back-end de login |
+| 2026-11-16 | Fernando | Usuários passam a vir do banco de dados (#13): seed, perfil derivado do papel (RN02), usuário desativado não entra (RN14) |
 | 2026-11-17 | Enzo | Integração da tela de login com a API (issue #16): como usar pela tela, regras RN08 a RN13, arquivos do front-end, limitações e rastreabilidade com RF01 |
+| 2026-11-18 | Fernando | Back-end em camadas com pastas próprias (ADR-008): `auth/` dividido em `controllers/` e `services/`; regra do usuário desativado renumerada de RN08 para RN14 |
+| 2026-11-18 | Fernando | Perfil decidido para o MVP (ADR-006): publicador é o líder e receptor é o colaborador. "Quem usa", passo a passo, RN02 e limitações atualizados |
+| 2026-11-18 | Fernando | Usuário de Validação (`validacao@exemplo.com`) volta como usuário de teste, agora criado pelo seed (`SEED_SENHA_VALIDACAO`) |

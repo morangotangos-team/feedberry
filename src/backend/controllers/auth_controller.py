@@ -1,10 +1,13 @@
-"""Rotas HTTP do login."""
+"""Controller do login: recebe a requisição HTTP e monta a resposta.
 
-from flask import Blueprint, current_app, jsonify, request
+Não tem regra de negócio (fica em services/) nem acessa o banco (fica em
+repositories/).
+"""
+
+from flask import Blueprint, jsonify, request
 
 from repositories.usuario_repository import UsuarioRepository
-
-from .service import (
+from services.auth_service import (
     MENSAGEM_CREDENCIAIS_INVALIDAS,
     AuthService,
     CredenciaisInvalidas,
@@ -20,7 +23,7 @@ def login():
     if not isinstance(dados, dict):
         return jsonify(sucesso=False, mensagem="Envie e-mail, senha e perfil em JSON."), 400
 
-    repositorio = UsuarioRepository(current_app.config["USUARIOS_ARQUIVO"])
+    repositorio = UsuarioRepository()
     servico = AuthService(repositorio)
 
     try:

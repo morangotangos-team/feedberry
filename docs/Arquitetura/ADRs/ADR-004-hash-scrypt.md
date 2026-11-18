@@ -14,7 +14,7 @@ Os usuários ficam em `src/backend/data/usuarios.json`, um arquivo que está no 
 
 ## Decisão
 
-As senhas são guardadas apenas como hash **scrypt**, gerado por `generate_password_hash(senha, method="scrypt")` do **Werkzeug**, que já vem com o Flask. O código fica em `src/backend/auth/security.py`.
+As senhas são guardadas apenas como hash **scrypt**, gerado por `generate_password_hash(senha, method="scrypt")` do **Werkzeug**, que já vem com o Flask. O código fica em `src/backend/services/security.py` (até o ADR-008, `src/backend/auth/security.py`).
 
 - Cada senha recebe um **salt aleatório**. O hash guardado leva o método e os parâmetros (`scrypt:32768:8:1$<salt>$<hash>`).
 - A verificação usa `check_password_hash`, que compara em **tempo constante**.
@@ -28,7 +28,7 @@ A justificativa completa está em `docs/Funcionalidades/login.md`, no PR #12.
   - Nenhuma dependência nova: o Werkzeug já é instalado com o Flask.
   - Se o arquivo de usuários (ou, depois, o banco) vazar, quem tiver os dados não consegue reverter o hash, não consegue usar tabelas pré-calculadas e precisa testar senha por senha, gastando CPU e cerca de 32 MiB de memória em cada tentativa.
   - Como o hash guarda os parâmetros, eles podem ser aumentados no futuro sem invalidar os hashes antigos.
-  - A #13 reaproveita o `auth/security.py` no banco de dados, sem mudar a técnica.
+  - A #13 reaproveita o `security.py` no banco de dados, sem mudar a técnica.
 - **Negativas:**
   - Cada verificação é propositalmente lenta e usa memória, o que aumenta o custo de cada login no servidor.
   - Senhas fracas ou muito comuns continuam fáceis de adivinhar. Exigir senha forte fica para o cadastro, que está fora do escopo da #9.

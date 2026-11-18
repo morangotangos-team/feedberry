@@ -4,7 +4,7 @@
 - **Data:** 2026-11-10
 - **Quem decidiu:** Grupo
 - **Origem:** [#9](https://github.com/morangotangos-team/feedberry/issues/9) (back-end de login), [PR #12](https://github.com/morangotangos-team/feedberry/pull/12) (em rascunho)
-- **Relacionados:** [ADR-004](ADR-004-hash-scrypt.md), [ADR-005](ADR-005-frontend-servido-pelo-flask.md), [ADR-006](ADR-006-perfil-da-conta.md)
+- **Relacionados:** [ADR-004](ADR-004-hash-scrypt.md), [ADR-005](ADR-005-frontend-servido-pelo-flask.md), [ADR-006](ADR-006-perfil-da-conta.md), [ADR-008](ADR-008-camadas-do-backend-em-pastas.md) (muda a organização das pastas)
 
 ## Contexto
 
@@ -50,6 +50,7 @@ A funcionalidade fica em um *blueprint* do Flask (`auth`), e a aplicação é cr
   - A separação só funciona se todo o grupo respeitar as responsabilidades da tabela acima; nada no código impede uma rota de acessar os dados direto.
   - A troca para o banco não fica só no repositório. No PR #12, o `routes.py` cria `UsuarioRepository(current_app.config["USUARIOS_ARQUIVO"])`, então a rota também muda; e o `AuthService` lê o usuário como dicionário (`usuario["senha_hash"]`), então o repositório com ORM precisa continuar devolvendo um dicionário, ou o serviço muda junto.
 - **A observar:** o PR #12 ainda está em rascunho. Se a estrutura mudar na revisão, este ADR deve ser atualizado antes de passar para **Aceito**.
+- **Estrutura de pastas atualizada:** no PR #30, as camadas passaram a ter pastas próprias (`controllers/`, `services/`, `repositories/`, `models/`) e a pasta `auth/` deixou de existir. A responsabilidade de cada camada continua a mesma da tabela acima. Ver [ADR-008](ADR-008-camadas-do-backend-em-pastas.md).
 
 ## Alternativas consideradas
 

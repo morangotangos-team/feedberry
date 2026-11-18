@@ -1,0 +1,128 @@
+@startuml modelo-entidade-relacionamento
+' Modelo entidade-relacionamento do FeedBerry (issue #13)
+' Fonte editável: renderize com PlantUML (https://plantuml.com) ou extensão PlantUML do VS Code.
+' Código de origem: src/backend/models/ · Dicionário de dados: docs/Arquitetura/banco-de-dados/README.md
+' Legenda: PK = chave primária, FK = chave estrangeira, UK = único, * = obrigatório (NOT NULL)
+
+!pragma layout smetana
+skinparam defaultFontName Arial
+skinparam shadowing false
+skinparam ArrowColor #444444
+skinparam ArrowFontSize 10
+skinparam linetype ortho
+hide circle
+hide empty methods
+
+skinparam class {
+  BackgroundColor #FFFFFF
+  BorderColor #C2185B
+  HeaderBackgroundColor #FCE4EC
+  FontStyle bold
+  AttributeFontSize 11
+}
+skinparam note {
+  BackgroundColor #FFF8FA
+  BorderColor #C2185B
+  FontSize 10
+}
+
+entity "usuario" as USUARIO {
+  * id : INTEGER <<PK>>
+  --
+  * nome : VARCHAR(120)
+  * email : VARCHAR(254) <<UK>>
+  * senha_hash : VARCHAR(255)
+  * papel : COLABORADOR | LIDER
+    equipe_id : INTEGER <<FK>>
+  * ativo : BOOLEAN
+  * tentativas_login_falhas : INTEGER
+  * criado_em : DATETIME (UTC)
+}
+
+entity "equipe" as EQUIPE {
+  * id : INTEGER <<PK>>
+  --
+  * nome : VARCHAR(120) <<UK>>
+    lider_id : INTEGER <<FK, UK>>
+  * criado_em : DATETIME (UTC)
+}
+
+entity "feedback" as FEEDBACK {
+  * id : INTEGER <<PK>>
+  --
+  * tipo : LIDER_PARA_COLABORADOR | COLABORADOR_PARA_LIDER
+    autor_id : INTEGER <<FK>> (nulo se anônimo)
+  * destinatario_id : INTEGER <<FK>>
+  * conteudo : TEXT
+  * anonimo : BOOLEAN
+  * criado_em : DATETIME (UTC)
+}
+
+entity "ponto_melhoria" as PONTO {
+  * id : INTEGER <<PK>>
+  --
+  * feedback_id : INTEGER <<FK>>
+  * descricao : TEXT
+  * status : ABERTO | EM_ANDAMENTO | CONCLUIDO
+  * atualizado_em : DATETIME (UTC)
+}
+
+entity "meta_desenvolvimento" as META {
+  * id : INTEGER <<PK>>
+  --
+  * colaborador_id : INTEGER <<FK>>
+  * definida_por_id : INTEGER <<FK>>
+    ponto_melhoria_id : INTEGER <<FK>>
+  * titulo : VARCHAR(150)
+    descricao : TEXT
+    prazo : DATE
+  * status : NAO_INICIADA | EM_ANDAMENTO | CONCLUIDA | CANCELADA
+  * criada_em : DATETIME (UTC)
+  * atualizada_em : DATETIME (UTC)
+}
+
+entity "lembrete" as LEMBRETE {
+  * id : INTEGER <<PK>>
+  --
+  * agendado_por_id : INTEGER <<FK>>
+  * destinatario_id : INTEGER <<FK>>
+    feedback_id : INTEGER <<FK>>
+    meta_id : INTEGER <<FK>>
+  * data_agendada : DATETIME (UTC)
+    mensagem : VARCHAR(500)
+  * status : PENDENTE | ENVIADO | CANCELADO
+    enviado_em : DATETIME (UTC)
+}
+
+EQUIPE |o--o{ USUARIO : "tem membros"
+USUARIO |o--o| EQUIPE : "lidera"
+USUARIO ||--o{ FEEDBACK : "recebe"
+USUARIO |o--o{ FEEDBACK : "escreve\n(nulo se anônimo)"
+FEEDBACK ||--o{ PONTO : "registra"
+USUARIO ||--o{ META : "possui"
+USUARIO ||--o{ META : "define (líder)"
+PONTO |o--o{ META : "pode originar"
+USUARIO ||--o{ LEMBRETE : "recebe"
+USUARIO ||--o{ LEMBRETE : "agenda"
+FEEDBACK |o--o{ LEMBRETE : "retorno de"
+META |o--o{ LEMBRETE : "acompanhamento de"
+
+note bottom of FEEDBACK
+  CHECK: autor_id <> destinatario_id
+  CHECK: anônimo só COLABORADOR_PARA_LIDER
+  CHECK: anônimo => autor_id nulo;
+         identificado => autor_id preenchido
+  Índice: (destinatario_id, criado_em)
+end note
+
+note bottom of LEMBRETE
+  CHECK: feedback_id ou meta_id preenchido
+  CHECK: ENVIADO => enviado_em preenchido
+end note
+
+note top of USUARIO
+  Não é apagado, só desativado (ativo = false).
+  FKs para usuario usam ON DELETE RESTRICT.
+end note
+
+@enduml
