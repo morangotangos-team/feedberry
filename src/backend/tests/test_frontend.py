@@ -3,6 +3,8 @@
 Rodar a partir de src/backend:  python -m pytest
 """
 
+import re
+
 import pytest
 
 from app import create_app
@@ -47,3 +49,14 @@ def test_login_por_outro_metodo_responde_405(client, metodo):
     assert resposta.status_code == 405
     assert resposta.headers["Allow"] == "POST"
     assert resposta.is_json
+
+
+def test_formularios_de_login_enviam_por_post(client):
+    # Sem method, o navegador usa GET e, se o JS não carregar, põe e-mail e
+    # senha na URL (issue #36). Com POST, os dados vão no corpo da requisição.
+    html = client.get("/").get_data(as_text=True)
+    formularios = re.findall(r"<form\b[^>]*>", html)
+
+    assert len(formularios) == 2  # publicador e receptor
+    for formulario in formularios:
+        assert re.search(r'\bmethod="post"', formulario, re.IGNORECASE), formulario
