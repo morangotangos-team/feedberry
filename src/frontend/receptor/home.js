@@ -1,6 +1,6 @@
 /* ==========================================================================
    Home do RECEPTOR (issue #15) · só front-end, dados de dados-mock.js.
-   Regra: este arquivo importa apenas de ../componentes, ../utils e do próprio
+   Regra: este arquivo importa apenas de ../componentes, ../servicos, ../utils e do próprio
    dados-mock.js. Nunca da pasta de outro perfil.
    ========================================================================== */
 import { layoutHome, ativarLayoutHome, atualizarConteudo } from '../componentes/layout-home/layout-home.js';
@@ -12,7 +12,12 @@ import { listaLembretes } from '../componentes/lista-lembretes/lista-lembretes.j
 import { listaMetasPontos } from '../componentes/card-meta-ponto/card-meta-ponto.js';
 import { mostrarToast } from '../componentes/toast/toast.js';
 import { plural } from '../utils/plural.js';
-import { usuario, feedbacksRecebidos, metas, pontosMelhoria, lembretes } from './dados-mock.js';
+import { usuario as usuarioExemplo, feedbacksRecebidos, metas, pontosMelhoria, lembretes } from './dados-mock.js';
+import { usuarioLogado } from '../servicos/auth.js';
+
+/* Quem entrou pelo login (identidade devolvida pela API). Sem login, ficam os dados de exemplo. */
+const logado = usuarioLogado();
+const usuario = logado ? { ...usuarioExemplo, nome: logado.nome, papel: 'Receptor' } : usuarioExemplo;
 
 /* Telas deste perfil. href "#" = tela que será criada em outra issue
    (o clique mostra "Tela em construção"). Troque pelo caminho real quando existir. */
