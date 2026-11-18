@@ -35,7 +35,7 @@ class Usuario(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True)
     nome: Mapped[str] = mapped_column(String(120))
     email: Mapped[str] = mapped_column(String(254), unique=True)
-    # Só o hash scrypt (auth/security.py). A senha nunca é guardada.
+    # Só o hash scrypt (services/security.py). A senha nunca é guardada.
     senha_hash: Mapped[str] = mapped_column(String(255))
     papel: Mapped[Papel] = mapped_column(coluna_enum(Papel, "papel"), default=Papel.COLABORADOR)
     # use_alter: usuario e equipe apontam uma para a outra (membro e líder).

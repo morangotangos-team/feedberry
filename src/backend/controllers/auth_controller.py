@@ -1,10 +1,13 @@
-"""Rotas HTTP do login."""
+"""Controller do login: recebe a requisição HTTP e monta a resposta.
+
+Não tem regra de negócio (fica em services/) nem acessa o banco (fica em
+repositories/).
+"""
 
 from flask import Blueprint, jsonify, request
 
 from repositories.usuario_repository import UsuarioRepository
-
-from .service import (
+from services.auth_service import (
     MENSAGEM_CREDENCIAIS_INVALIDAS,
     AuthService,
     CredenciaisInvalidas,

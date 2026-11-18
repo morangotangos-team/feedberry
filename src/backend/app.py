@@ -8,8 +8,8 @@ Banco de dados: flask db upgrade (cria ou atualiza o esquema).
 
 from flask import Flask
 
-from auth import auth_bp
 from config import PASTA_BACKEND, PASTA_FRONTEND, Config
+from controllers import auth_bp
 from extensions import db, migrate
 
 

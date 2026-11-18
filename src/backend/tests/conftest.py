@@ -9,9 +9,9 @@ import secrets
 import pytest
 
 from app import create_app
-from auth.security import gerar_hash_senha
 from extensions import db
 from models import Papel, Usuario
+from services.security import gerar_hash_senha
 
 CONFIG_DE_TESTE = {"TESTING": True, "SQLALCHEMY_DATABASE_URI": "sqlite://"}
 

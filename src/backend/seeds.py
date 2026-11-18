@@ -17,9 +17,9 @@ import sys
 
 from sqlalchemy import select
 
-from auth.security import gerar_hash_senha
 from extensions import db
 from models import Equipe, Papel, Usuario
+from services.security import gerar_hash_senha
 
 NOME_EQUIPE = "Equipe de Teste"
 

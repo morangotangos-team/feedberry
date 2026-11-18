@@ -16,9 +16,9 @@ import secrets
 import pytest
 from sqlalchemy import select
 
-from auth.security import gerar_hash_senha, verificar_senha
-from auth.service import MENSAGEM_CREDENCIAIS_INVALIDAS
 from models import Papel, Usuario
+from services.auth_service import MENSAGEM_CREDENCIAIS_INVALIDAS
+from services.security import gerar_hash_senha, verificar_senha
 
 
 @pytest.fixture
