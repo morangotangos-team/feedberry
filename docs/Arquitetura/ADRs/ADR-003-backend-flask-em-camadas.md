@@ -42,12 +42,13 @@ A funcionalidade fica em um *blueprint* do Flask (`auth`), e a aplicação é cr
 ## Consequências
 
 - **Positivas:**
-  - Trocar o `usuarios.json` pelo banco mexe só no repositório. A #13 já conta com isso: pede para reescrever o `UsuarioRepository` com o ORM mantendo o método `buscar_por_email`, para que as rotas e o `AuthService` não mudem.
+  - Trocar o `usuarios.json` pelo banco fica concentrado no repositório e não exige mudar as regras de negócio. A #13 conta com isso: pede para reescrever o `UsuarioRepository` com o ORM mantendo o método `buscar_por_email`, para que o `AuthService` não mude.
   - As regras de negócio podem ser testadas sem subir o servidor HTTP.
   - Novas funcionalidades (feedbacks, metas, lembretes) podem seguir o mesmo padrão, cada uma no seu blueprint.
 - **Negativas:**
   - Mais arquivos e mais indireção do que um único `app.py`, o que pesa em funcionalidades pequenas.
   - A separação só funciona se todo o grupo respeitar as responsabilidades da tabela acima; nada no código impede uma rota de acessar os dados direto.
+  - A troca para o banco não fica só no repositório. No PR #12, o `routes.py` cria `UsuarioRepository(current_app.config["USUARIOS_ARQUIVO"])`, então a rota também muda; e o `AuthService` lê o usuário como dicionário (`usuario["senha_hash"]`), então o repositório com ORM precisa continuar devolvendo um dicionário, ou o serviço muda junto.
 - **A observar:** o PR #12 ainda está em rascunho. Se a estrutura mudar na revisão, este ADR deve ser atualizado antes de passar para **Aceito**.
 
 ## Alternativas consideradas
