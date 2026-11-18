@@ -33,15 +33,16 @@ As senhas não ficam no código: são lidas de variáveis de ambiente e gravadas
 # PowerShell
 $env:SEED_SENHA_LIDER = "<escolha uma senha>"
 $env:SEED_SENHA_COLABORADOR = "<escolha outra senha>"
+$env:SEED_SENHA_VALIDACAO = "<senha do usuário de validação>"
 python seeds.py
 ```
 
 ```bash
 # Bash
-SEED_SENHA_LIDER='<senha>' SEED_SENHA_COLABORADOR='<senha>' python seeds.py
+SEED_SENHA_LIDER='<senha>' SEED_SENHA_COLABORADOR='<senha>' SEED_SENHA_VALIDACAO='<senha>' python seeds.py
 ```
 
-O seed cria a **Equipe de Teste**, liderada por `lider@exemplo.com` (papel `LIDER`), com `colaborador@exemplo.com` (papel `COLABORADOR`) como membro. Rodar de novo não duplica nada. Sem as duas variáveis, o seed para com erro e não grava nada.
+O seed cria a **Equipe de Teste**, liderada por `lider@exemplo.com` (papel `LIDER`), com `colaborador@exemplo.com` (papel `COLABORADOR`) como membro. Também cria o **Usuário de Validação** (`validacao@exemplo.com`, papel `LIDER`, fora da equipe), que o grupo usa para testar a entrada pela tela; para continuar com a mesma senha que o grupo já usava no antigo `usuarios.json`, use essa senha no `SEED_SENHA_VALIDACAO`. Rodar de novo não duplica nada: quem já rodou o seed antes só ganha o usuário de validação. Sem as três variáveis, o seed para com erro e não grava nada.
 
 No login, o líder entra como **publicador** e o colaborador como **receptor** ([ADR-006](../ADRs/ADR-006-perfil-da-conta.md)).
 
@@ -239,3 +240,4 @@ Pontos da [#13](https://github.com/morangotangos-team/feedberry/issues/13) que a
 | 2026-11-16 | Fernando | Criação do banco (issue #13): modelos, migração inicial, seed e documentação |
 | 2026-11-18 | Fernando | Caminho do hash de senha atualizado para `services/security.py` (ADR-008) |
 | 2026-11-18 | Fernando | Perfil do login × papel decidido para o MVP (ADR-006), com o que muda no canal líder ↔ gestor |
+| 2026-11-18 | Fernando | Seed cria também o Usuário de Validação (`SEED_SENHA_VALIDACAO`), usado pelo grupo nos testes pela tela |

@@ -56,6 +56,7 @@ def senhas_do_seed(monkeypatch):
     senhas = {
         "SEED_SENHA_LIDER": secrets.token_urlsafe(12),
         "SEED_SENHA_COLABORADOR": secrets.token_urlsafe(12),
+        "SEED_SENHA_VALIDACAO": secrets.token_urlsafe(12),
     }
     for variavel, senha in senhas.items():
         monkeypatch.setenv(variavel, senha)
@@ -65,7 +66,7 @@ def senhas_do_seed(monkeypatch):
 def test_seed_cria_equipe_lider_e_colaborador(sessao, senhas_do_seed):
     criados = seeds.popular_banco(sessao)
 
-    assert criados == ["lider@exemplo.com", "colaborador@exemplo.com"]
+    assert criados == ["lider@exemplo.com", "colaborador@exemplo.com", "validacao@exemplo.com"]
     equipe = sessao.scalar(select(Equipe))
     assert equipe.lider.email == "lider@exemplo.com"
     assert equipe.lider.papel is Papel.LIDER
@@ -88,7 +89,7 @@ def test_seed_pode_rodar_de_novo_sem_duplicar(sessao, senhas_do_seed):
     seeds.popular_banco(sessao)
 
     assert seeds.popular_banco(sessao) == []
-    assert len(sessao.scalars(select(Usuario)).all()) == 2
+    assert len(sessao.scalars(select(Usuario)).all()) == 3
     assert len(sessao.scalars(select(Equipe)).all()) == 1
 
 
@@ -122,3 +123,24 @@ def test_usuarios_do_seed_entram_com_o_perfil_traduzido(app, sessao, senhas_do_s
     assert lider.get_json()["usuario"]["perfil"] == "publicador"
     assert colaborador.status_code == 200
     assert colaborador.get_json()["usuario"]["perfil"] == "receptor"
+
+
+def test_seed_cria_o_usuario_de_validacao_fora_da_equipe(app, sessao, senhas_do_seed):
+    seeds.popular_banco(sessao)
+
+    validacao = sessao.scalar(select(Usuario).where(Usuario.email == "validacao@exemplo.com"))
+    assert validacao.nome == "Usuário de Validação"
+    assert validacao.papel is Papel.LIDER
+    assert validacao.equipe is None
+    assert sessao.scalar(select(Equipe)).lider.email == "lider@exemplo.com"
+
+    resposta = app.test_client().post(
+        "/auth/login",
+        json={
+            "email": "validacao@exemplo.com",
+            "senha": senhas_do_seed["SEED_SENHA_VALIDACAO"],
+            "perfil": "publicador",
+        },
+    )
+    assert resposta.status_code == 200
+    assert resposta.get_json()["usuario"]["nome"] == "Usuário de Validação"

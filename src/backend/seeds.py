@@ -5,6 +5,7 @@ Rodar a partir de src/backend, depois do `flask db upgrade`:
     # PowerShell
     $env:SEED_SENHA_LIDER = "<senha do líder>"
     $env:SEED_SENHA_COLABORADOR = "<senha do colaborador>"
+    $env:SEED_SENHA_VALIDACAO = "<senha do usuário de validação>"
     python seeds.py
 
 As senhas vêm só das variáveis de ambiente e são gravadas como hash scrypt.
@@ -24,9 +25,13 @@ from services.security import gerar_hash_senha
 NOME_EQUIPE = "Equipe de Teste"
 
 USUARIOS_DE_TESTE = (
-    # (nome, e-mail, papel, variável com a senha)
-    ("Líder de Teste", "lider@exemplo.com", Papel.LIDER, "SEED_SENHA_LIDER"),
-    ("Colaborador de Teste", "colaborador@exemplo.com", Papel.COLABORADOR, "SEED_SENHA_COLABORADOR"),
+    # (nome, e-mail, papel, variável com a senha, entra na Equipe de Teste)
+    ("Líder de Teste", "lider@exemplo.com", Papel.LIDER, "SEED_SENHA_LIDER", True),
+    ("Colaborador de Teste", "colaborador@exemplo.com", Papel.COLABORADOR, "SEED_SENHA_COLABORADOR", True),
+    # Usado pelo grupo para testar a entrada pela tela (veio do antigo
+    # data/usuarios.json). Entra como publicador e fica fora da equipe, para
+    # não mudar quem lidera a Equipe de Teste.
+    ("Usuário de Validação", "validacao@exemplo.com", Papel.LIDER, "SEED_SENHA_VALIDACAO", False),
 )
 
 
@@ -46,7 +51,7 @@ def popular_banco(sessao=None) -> list[str]:
     sessao = sessao if sessao is not None else db.session
 
     # Lê todas as senhas antes de gravar qualquer coisa: ou cria tudo, ou nada.
-    senhas = {email: _senha_do_ambiente(variavel) for _, email, _, variavel in USUARIOS_DE_TESTE}
+    senhas = {email: _senha_do_ambiente(variavel) for _, email, _, variavel, _ in USUARIOS_DE_TESTE}
 
     equipe = sessao.scalar(select(Equipe).where(Equipe.nome == NOME_EQUIPE))
     if equipe is None:
@@ -54,7 +59,7 @@ def popular_banco(sessao=None) -> list[str]:
         sessao.add(equipe)
 
     criados = []
-    for nome, email, papel, _ in USUARIOS_DE_TESTE:
+    for nome, email, papel, _, na_equipe in USUARIOS_DE_TESTE:
         usuario = sessao.scalar(select(Usuario).where(Usuario.email == email))
         if usuario is None:
             usuario = Usuario(
@@ -62,11 +67,11 @@ def popular_banco(sessao=None) -> list[str]:
                 email=email,
                 papel=papel,
                 senha_hash=gerar_hash_senha(senhas[email]),
-                equipe=equipe,
+                equipe=equipe if na_equipe else None,
             )
             sessao.add(usuario)
             criados.append(email)
-        if papel is Papel.LIDER and equipe.lider is None:
+        if na_equipe and papel is Papel.LIDER and equipe.lider is None:
             equipe.lider = usuario
 
     sessao.commit()

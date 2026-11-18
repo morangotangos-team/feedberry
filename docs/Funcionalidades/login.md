@@ -76,7 +76,7 @@ Para ligar o modo debug na sua máquina, defina `FLASK_DEBUG=1` antes de `python
 **Requisição**: `POST /auth/login` com corpo JSON:
 
 ```json
-{ "email": "publicador@exemplo.com", "senha": "<senha>", "perfil": "publicador" }
+{ "email": "lider@exemplo.com", "senha": "<senha>", "perfil": "publicador" }
 ```
 
 **Respostas**:
@@ -91,10 +91,10 @@ Para ligar o modo debug na sua máquina, defina `FLASK_DEBUG=1` antes de `python
 | Corpo que não é JSON | `400` | `{"sucesso": false, "mensagem": "Envie e-mail, senha e perfil em JSON."}` |
 | Requisição maior que 16 KB | `413` | Resposta padrão do Flask |
 
-**Usuários de teste**: o `seeds.py` cria `lider@exemplo.com` (entra como **publicador**) e `colaborador@exemplo.com` (entra como **receptor**). Cada pessoa escolhe as senhas da sua máquina pelas variáveis de ambiente, que nunca vão para o repositório:
+**Usuários de teste**: o `seeds.py` cria `lider@exemplo.com` (entra como **publicador**), `colaborador@exemplo.com` (entra como **receptor**) e `validacao@exemplo.com` (Usuário de Validação, entra como **publicador**; é o que o grupo usa para testar pela tela). Cada pessoa escolhe as senhas da sua máquina pelas variáveis de ambiente, que nunca vão para o repositório:
 
 ```powershell
-$env:SEED_SENHA_LIDER = "<senha>"; $env:SEED_SENHA_COLABORADOR = "<senha>"; python seeds.py
+$env:SEED_SENHA_LIDER = "<senha>"; $env:SEED_SENHA_COLABORADOR = "<senha>"; $env:SEED_SENHA_VALIDACAO = "<senha>"; python seeds.py
 ```
 
 Detalhes (Bash, PostgreSQL, começar do zero) em [Banco de dados § Como rodar](../Arquitetura/banco-de-dados/README.md#1-como-rodar).
@@ -203,3 +203,4 @@ A proteção é menor contra senhas fracas ou muito comuns, que podem ser adivin
 | 2026-11-17 | Enzo | Integração da tela de login com a API (issue #16): como usar pela tela, regras RN08 a RN13, arquivos do front-end, limitações e rastreabilidade com RF01 |
 | 2026-11-18 | Fernando | Back-end em camadas com pastas próprias (ADR-008): `auth/` dividido em `controllers/` e `services/`; regra do usuário desativado renumerada de RN08 para RN14 |
 | 2026-11-18 | Fernando | Perfil decidido para o MVP (ADR-006): publicador é o líder e receptor é o colaborador. "Quem usa", passo a passo, RN02 e limitações atualizados |
+| 2026-11-18 | Fernando | Usuário de Validação (`validacao@exemplo.com`) volta como usuário de teste, agora criado pelo seed (`SEED_SENHA_VALIDACAO`) |
