@@ -32,6 +32,8 @@ A justificativa completa está em `docs/Funcionalidades/login.md`, no PR #12.
 - **Negativas:**
   - Cada verificação é propositalmente lenta e usa memória, o que aumenta o custo de cada login no servidor.
   - Senhas fracas ou muito comuns continuam fáceis de adivinhar. Exigir senha forte fica para o cadastro, que está fora do escopo da #9.
+  - Os parâmetros padrão do Werkzeug (N = 2¹⁵) estão abaixo do que a OWASP sugere para produção (N = 2¹⁷).
+  - Sem limite de tentativas (rate limiting), cada login custa cerca de 32 MiB de memória, o que permite sobrecarregar o servidor com muitas requisições.
 - **A observar:** o PR #12 ainda está em rascunho. Se a técnica mudar na revisão, este ADR deve ser atualizado antes de passar para **Aceito**.
 
 ## Alternativas consideradas
@@ -43,6 +45,6 @@ Alternativas registradas no `docs/Funcionalidades/login.md` do PR #12:
 | Senha em texto puro | Qualquer vazamento expõe todas as senhas. Proibido pelos critérios de aceite. |
 | Criptografia reversível (ex.: AES) | Quem tiver a chave recupera todas as senhas. Para login, basta conferir a senha, não recuperá-la. |
 | Hash rápido (MD5, SHA-1, SHA-256), mesmo com salt | São feitos para serem rápidos: uma GPU testa bilhões de senhas por segundo. Sem salt, ainda há as tabelas pré-calculadas (*rainbow tables*). |
-| Argon2id (`argon2-cffi`) | É a primeira recomendação da OWASP, mas exige dependência nova. O scrypt dá proteção equivalente com o que o projeto já tem. |
+| Argon2id (`argon2-cffi`) | É a primeira recomendação da OWASP, mas exige dependência nova. O scrypt foi escolhido por já vir com o Werkzeug. |
 | bcrypt (`bcrypt`) | Também é seguro, mas exige dependência nova e considera só os primeiros 72 bytes da senha. |
 | PBKDF2 (também disponível no Werkzeug) | É seguro com muitas iterações, mas usa pouca memória, o que facilita ataques com GPU em comparação com o scrypt. |
