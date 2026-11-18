@@ -1,0 +1,15 @@
+/* Todos os estilos dos componentes. As homes carregam só este arquivo.
+   Ao criar um componente novo, adicione o .css dele aqui. */
+@import url("./avatar/avatar.css");
+@import url("./berry/berry.css");
+@import url("./cabecalho/cabecalho.css");
+@import url("./menu/menu.css");
+@import url("./layout-home/layout-home.css");
+@import url("./saudacao/saudacao.css");
+@import url("./secao/secao.css");
+@import url("./card-resumo/card-resumo.css");
+@import url("./card-feedback/card-feedback.css");
+@import url("./card-meta-ponto/card-meta-ponto.css");
+@import url("./lista-lembretes/lista-lembretes.css");
+@import url("./estado-vazio/estado-vazio.css");
+@import url("./toast/toast.css");

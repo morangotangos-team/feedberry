@@ -31,3 +31,14 @@ def login():
         return jsonify(sucesso=False, mensagem=MENSAGEM_CREDENCIAIS_INVALIDAS), 401
 
     return jsonify(sucesso=True, usuario=usuario), 200
+
+
+@auth_bp.route("/login", methods=["GET", "PUT", "PATCH", "DELETE"])
+def login_metodo_nao_permitido():
+    # Como o Flask também entrega as telas na raiz do site, um GET em /auth/login
+    # cairia na busca de arquivos estáticos e voltaria 404. Esta rota garante a
+    # resposta correta do HTTP: 405, avisando no cabeçalho Allow que só POST vale.
+    resposta = jsonify(sucesso=False, mensagem="Método não permitido. Use POST.")
+    resposta.status_code = 405
+    resposta.headers["Allow"] = "POST"
+    return resposta

@@ -1,0 +1,4 @@
+.secao__topo{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:14px}
+.secao h2{font-size:1.35rem}
+.secao__link{color:var(--berry-ink);font-weight:600;font-size:.92rem;text-decoration:none;white-space:nowrap}
+.secao__link:hover{text-decoration:underline}

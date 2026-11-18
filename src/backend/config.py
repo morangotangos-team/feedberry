@@ -5,6 +5,9 @@ from pathlib import Path
 
 PASTA_BACKEND = Path(__file__).resolve().parent
 
+# Telas do front-end, entregues pelo próprio Flask na mesma origem da API (ADR-005).
+PASTA_FRONTEND = PASTA_BACKEND.parent / "frontend"
+
 # Sem DATABASE_URL, usa um SQLite em src/backend/instance/feedberry.db. Um
 # caminho relativo no SQLite é resolvido pelo Flask-SQLAlchemy dentro da
 # pasta instance/ da aplicação, que fica fora do Git.

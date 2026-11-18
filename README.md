@@ -14,6 +14,8 @@ Desenvolver, no contexto da disciplina de **Arquitetura de Software**, uma aplic
 
 > ⚠️ Escopo e requisitos em definição — ver [`docs/`](docs/).
 
+🏛️ As decisões de arquitetura do projeto estão registradas nos [ADRs](docs/Arquitetura/ADRs/README.md).
+
 ## 🗂️ Estrutura do repositório
 
 ```

@@ -1,0 +1,13 @@
+.lista-feedbacks{display:grid;gap:14px}
+.card-feedback{display:flex;gap:14px;background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:18px}
+.card-feedback__corpo{flex:1;min-width:0}
+.card-feedback header{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px}
+.card-feedback__quando{margin-left:auto;color:var(--muted);font-size:.85rem}
+.card-feedback__anonimo{font-size:.82rem;color:var(--muted)}
+.card-feedback p{margin:6px 0 12px;overflow-wrap:anywhere}
+.card-feedback footer{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.card-feedback__ok{margin-left:auto;color:var(--leaf);font-weight:600;font-size:.88rem}
+.card-feedback footer .btn{margin-left:auto}
+.chip--elogio{--c:var(--elogio)}
+.chip--construtivo{--c:var(--construtivo)}
+.chip--ideia{--c:var(--ideia)}
