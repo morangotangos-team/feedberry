@@ -2,7 +2,7 @@
 
 - **Status:** Em aberto
 - **Data:** 2026-11-12
-- **Quem decidiu:** a confirmar (decisão ainda não tomada)
+- **Quem decidiu:** a confirmar (decisão ainda não tomada; quem decide é o grupo junto com o cliente, conforme a #13)
 - **Origem:** [#13](https://github.com/morangotangos-team/feedberry/issues/13) (banco de dados), ponto 1 de "Pontos para decidir"; [#16](https://github.com/morangotangos-team/feedberry/issues/16) (integração do login), seção "Dependências"
 - **Relacionados:** [ADR-003](ADR-003-backend-flask-em-camadas.md)
 
@@ -23,7 +23,7 @@ A #13 pede para alinhar isso com quem está na #9 **antes** de migrar o reposit�
 
 **Ainda não decidido.** A discussão acontece na [#13](https://github.com/morangotangos-team/feedberry/issues/13), e este ADR será atualizado com a decisão e o status **Proposto** ou **Aceito** quando ela for tomada.
 
-O que precisa ser decidido:
+O que precisa ser decidido (quem decide é o grupo junto com o cliente, conforme a #13):
 
 1. Qual é o perfil guardado na **conta**: `publicador`/`receptor`, `COLABORADOR`/`LIDER` ou outro.
 2. Se o login continua pedindo o perfil e, se sim, qual.
