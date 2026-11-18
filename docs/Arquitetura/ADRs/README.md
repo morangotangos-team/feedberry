@@ -9,7 +9,7 @@ Um ADR (*Architecture Decision Record*) registra **uma** decisão de arquitetura
 
 | ADR | Decisão | Status | Origem |
 |-----|---------|--------|--------|
-| [ADR-001](ADR-001-frontend-sem-framework.md) | Front-end em HTML, CSS e JavaScript, sem framework | Aceito | [#6](https://github.com/morangotangos-team/feedberry/issues/6), [#15](https://github.com/morangotangos-team/feedberry/issues/15), [PR #14](https://github.com/morangotangos-team/feedberry/pull/14) |
+| [ADR-001](ADR-001-frontend-sem-framework.md) | Front-end em HTML, CSS e JavaScript, sem framework | Aceito | [#6](https://github.com/morangotangos-team/feedberry/issues/6), [#15](https://github.com/morangotangos-team/feedberry/issues/15), [PR #14](https://github.com/morangotangos-team/feedberry/pull/14), [PR #21](https://github.com/morangotangos-team/feedberry/pull/21) |
 | [ADR-002](ADR-002-componentes-compartilhados.md) | Componentes compartilhados entre os perfis | Aceito | [#15](https://github.com/morangotangos-team/feedberry/issues/15), [PR #14](https://github.com/morangotangos-team/feedberry/pull/14), [PR #21](https://github.com/morangotangos-team/feedberry/pull/21) |
 | [ADR-003](ADR-003-backend-flask-em-camadas.md) | Back-end em Flask, organizado em camadas | Proposto | [#9](https://github.com/morangotangos-team/feedberry/issues/9), [PR #12](https://github.com/morangotangos-team/feedberry/pull/12) |
 | [ADR-004](ADR-004-hash-scrypt.md) | Hash de senha com scrypt | Proposto | [#9](https://github.com/morangotangos-team/feedberry/issues/9), [PR #12](https://github.com/morangotangos-team/feedberry/pull/12) |
@@ -47,7 +47,7 @@ Crie um ADR quando a decisão se encaixar em pelo menos um destes casos:
 | **Aceito** | A decisão está em uso: o código ou o documento que a aplica já está na `develop` |
 | **Substituído** | Uma decisão mais nova tomou o lugar desta. O campo **Relacionados** aponta para o ADR que a substitui |
 
-Um ADR **não é apagado** nem reescrito quando a decisão muda: o status passa a **Substituído** e um ADR novo registra a decisão nova. Correções pequenas (link quebrado, erro de digitação) podem ser feitas direto no arquivo.
+Enquanto o ADR está **Em aberto** ou **Proposto**, ele pode ser editado para acompanhar a discussão. A partir de **Aceito**, o ADR **não é apagado** nem reescrito quando a decisão muda: o status passa a **Substituído** e um ADR novo registra a decisão nova. Correções pequenas (link quebrado, erro de digitação) podem ser feitas direto no arquivo em qualquer status.
 
 ## Como criar um ADR
 
@@ -55,4 +55,4 @@ Um ADR **não é apagado** nem reescrito quando a decisão muda: o status passa 
 2. Preencha os metadados e as seções. Se as alternativas discutidas não foram registradas em lugar nenhum, **escreva isso** em vez de inventar.
 3. Adicione a linha no índice acima.
 4. Abra o PR seguindo o [padrão de commit e GitFlow](../../Processos_De_Desenvolvimento/Padrao%20de%20commit%20e%20GitFlow.md), com commit do tipo `docs(arquitetura): ...`.
-5. Quando a issue ou o PR de origem for mesclado, mude o status de **Proposto** para **Aceito**.
+5. Quando a issue ou o PR de origem for mesclado, o autor do PR de origem muda o status de **Proposto** para **Aceito** no ADR e no índice. Para não esquecer, o PR de origem deve ter esse item na lista de verificação.
