@@ -8,3 +8,7 @@ __pycache__/
 # Flask
 instance/
 .env
+
+# Banco de dados local (SQLite)
+*.db
+*.sqlite3

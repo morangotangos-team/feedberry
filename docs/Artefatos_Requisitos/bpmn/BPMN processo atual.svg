@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1640 520" font-family="DejaVu Sans, sans-serif">
+<defs><marker id="ar" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#333"/></marker></defs>
+<rect x="10" y="0" width="1620" height="500" fill="none" stroke="#333" stroke-width="1.5"/>
+<text transform="translate(28,250) rotate(-90)" text-anchor="middle" font-size="13" font-weight="bold">Processo atual de feedback (AS-IS)</text>
+<rect x="40" y="0" width="1590" height="230" fill="none" stroke="#333"/>
+<line x1="68" y1="0" x2="68" y2="230" stroke="#333"/>
+<text transform="translate(59,115.0) rotate(-90)" text-anchor="middle" font-size="12">Líder / Gestor</text>
+<rect x="40" y="230" width="1590" height="270" fill="none" stroke="#333"/>
+<line x1="68" y1="230" x2="68" y2="500" stroke="#333"/>
+<text transform="translate(59,365.0) rotate(-90)" text-anchor="middle" font-size="12">Colaborador</text>
+<line x1="128.0" y1="125.0" x2="60" y2="42.0" stroke="#b42318" stroke-dasharray="4,3"/>
+<line x1="255.0" y1="125.0" x2="190" y2="212.0" stroke="#b42318" stroke-dasharray="4,3"/>
+<line x1="425.0" y1="370.0" x2="360" y2="442.0" stroke="#b42318" stroke-dasharray="4,3"/>
+<line x1="695.0" y1="168.0" x2="640" y2="227.0" stroke="#b42318" stroke-dasharray="4,3"/>
+<line x1="825.0" y1="125.0" x2="780" y2="442.0" stroke="#b42318" stroke-dasharray="4,3"/>
+<line x1="945.0" y1="370.0" x2="1040" y2="442.0" stroke="#b42318" stroke-dasharray="4,3"/>
+<line x1="1245.0" y1="125.0" x2="1270" y2="237.0" stroke="#b42318" stroke-dasharray="4,3"/>
+<polyline points="146,125 190,125" fill="none" stroke="#333" stroke-width="1.3" marker-end="url(#ar)"/>
+<polyline points="320,125 360,125" fill="none" stroke="#333" stroke-width="1.3" marker-end="url(#ar)"/>
+<polyline points="425,157 425,338" fill="none" stroke="#333" stroke-width="1.3" marker-end="url(#ar)"/>
+<polyline points="490,370 565,370 565,150" fill="none" stroke="#333" stroke-width="1.3" marker-end="url(#ar)"/>
+<polyline points="565,100 565,78 630,78" fill="none" stroke="#333" stroke-width="1.3" marker-end="url(#ar)"/>
+<text x="571.0" y="85.0" font-size="11" font-weight="bold">Sim</text>
+<polyline points="565,150 565,168 630,168" fill="none" stroke="#333" stroke-width="1.3" marker-end="url(#ar)"/>
+<text x="571.0" y="171.0" font-size="11" font-weight="bold">Não</text>
+<polyline points="760,78 825,78 825,100" fill="none" stroke="#333" stroke-width="1.3" marker-end="url(#ar)"/>
+<polyline points="760,168 825,168 825,150" fill="none" stroke="#333" stroke-width="1.3" marker-end="url(#ar)"/>
+<polyline points="850,125 945,125 945,338" fill="none" stroke="#333" stroke-width="1.3" marker-end="url(#ar)"/>
+<polyline points="1010,370 1115,370 1115,157" fill="none" stroke="#333" stroke-width="1.3" marker-end="url(#ar)"/>
+<polyline points="1180,125 1220,125" fill="none" stroke="#333" stroke-width="1.3" marker-end="url(#ar)"/>
+<polyline points="1245,100 1245,78 1320,78" fill="none" stroke="#333" stroke-width="1.3" marker-end="url(#ar)"/>
+<text x="1251.0" y="85.0" font-size="11" font-weight="bold">Sim</text>
+<polyline points="1245,150 1245,168 1490,168" fill="none" stroke="#333" stroke-width="1.3" marker-end="url(#ar)"/>
+<text x="1251.0" y="171.0" font-size="11" font-weight="bold">Não</text>
+<polyline points="1450,78 1490,78" fill="none" stroke="#333" stroke-width="1.3" marker-end="url(#ar)"/>
+<circle cx="128.0" cy="125.0" r="18.0" fill="#fff" stroke="#333" stroke-width="1.3"/>
+<text x="128.0" y="156" text-anchor="middle" font-size="10.5">Percebe um</text>
+<text x="128.0" y="168" text-anchor="middle" font-size="10.5">problema ou um</text>
+<text x="128.0" y="180" text-anchor="middle" font-size="10.5">bom trabalho</text>
+<rect x="190" y="93" width="130" height="64" rx="9" fill="#fff" stroke="#333" stroke-width="1.3"/>
+<text x="255.0" y="122.5" text-anchor="middle" font-size="11.5">Chama o colaborador</text>
+<text x="255.0" y="135.5" text-anchor="middle" font-size="11.5">para conversar</text>
+<rect x="360" y="93" width="130" height="64" rx="9" fill="#fff" stroke="#333" stroke-width="1.3"/>
+<text x="425.0" y="122.5" text-anchor="middle" font-size="11.5">Dá o feedback e</text>
+<text x="425.0" y="135.5" text-anchor="middle" font-size="11.5">combina mudanças</text>
+<rect x="360" y="338" width="130" height="64" rx="9" fill="#fff" stroke="#333" stroke-width="1.3"/>
+<text x="425.0" y="367.5" text-anchor="middle" font-size="11.5">Recebe e interpreta</text>
+<text x="425.0" y="380.5" text-anchor="middle" font-size="11.5">o feedback</text>
+<polygon points="565.0,100 590,125.0 565.0,150 540,125.0" fill="#fff" stroke="#333" stroke-width="1.3"/>
+<text x="565.0" y="131.0" text-anchor="middle" font-size="18" font-weight="bold">×</text>
+<text x="536" y="82" text-anchor="end" font-size="10.5" font-style="italic">Registra o</text>
+<text x="536" y="94" text-anchor="end" font-size="10.5" font-style="italic">feedback?</text>
+<rect x="630" y="50" width="130" height="56" rx="9" fill="#fff" stroke="#333" stroke-width="1.3"/>
+<text x="695.0" y="75.5" text-anchor="middle" font-size="11.5">Anota em caderno ou</text>
+<text x="695.0" y="88.5" text-anchor="middle" font-size="11.5">documento</text>
+<rect x="630" y="140" width="130" height="56" rx="9" fill="#fff" stroke="#333" stroke-width="1.3"/>
+<text x="695.0" y="165.5" text-anchor="middle" font-size="11.5">Guarda só na</text>
+<text x="695.0" y="178.5" text-anchor="middle" font-size="11.5">memória</text>
+<polygon points="825.0,100 850,125.0 825.0,150 800,125.0" fill="#fff" stroke="#333" stroke-width="1.3"/>
+<text x="825.0" y="131.0" text-anchor="middle" font-size="18" font-weight="bold">×</text>
+<rect x="880" y="338" width="130" height="64" rx="9" fill="#fff" stroke="#333" stroke-width="1.3"/>
+<text x="945.0" y="367.5" text-anchor="middle" font-size="11.5">Tenta aplicar o que</text>
+<text x="945.0" y="380.5" text-anchor="middle" font-size="11.5">entendeu</text>
+<rect x="1050" y="93" width="130" height="64" rx="9" fill="#fff" stroke="#333" stroke-width="1.3"/>
+<text x="1115.0" y="122.5" text-anchor="middle" font-size="11.5">Observa o trabalho</text>
+<text x="1115.0" y="135.5" text-anchor="middle" font-size="11.5">nos dias seguintes</text>
+<polygon points="1245.0,100 1270,125.0 1245.0,150 1220,125.0" fill="#fff" stroke="#333" stroke-width="1.3"/>
+<text x="1245.0" y="131.0" text-anchor="middle" font-size="18" font-weight="bold">×</text>
+<text x="1216" y="70" text-anchor="end" font-size="10.5" font-style="italic">Lembrou de</text>
+<text x="1216" y="82" text-anchor="end" font-size="10.5" font-style="italic">retomar o</text>
+<text x="1216" y="94" text-anchor="end" font-size="10.5" font-style="italic">assunto?</text>
+<rect x="1320" y="50" width="130" height="56" rx="9" fill="#fff" stroke="#333" stroke-width="1.3"/>
+<text x="1385.0" y="75.5" text-anchor="middle" font-size="11.5">Conversa de novo</text>
+<text x="1385.0" y="88.5" text-anchor="middle" font-size="11.5">com o colaborador</text>
+<circle cx="1508.0" cy="78.0" r="18.0" fill="#fff" stroke="#333" stroke-width="3.5"/>
+<text x="1508.0" y="109" text-anchor="middle" font-size="10.5">Acompanhamento</text>
+<text x="1508.0" y="121" text-anchor="middle" font-size="10.5">feito</text>
+<circle cx="1508.0" cy="168.0" r="18.0" fill="#fff" stroke="#333" stroke-width="3.5"/>
+<text x="1508.0" y="199" text-anchor="middle" font-size="10.5">Assunto</text>
+<text x="1508.0" y="211" text-anchor="middle" font-size="10.5">esquecido</text>
+<rect x="60" y="20" width="190" height="44" fill="#fef3f2" stroke="#b42318"/>
+<text x="66" y="34" font-size="10" fill="#7a271a">D1: Feedback reativo, só quando</text>
+<text x="66" y="46" font-size="10" fill="#7a271a">há problema (E1-4, E1-9, E2-4)</text>
+<rect x="190" y="190" width="190" height="44" fill="#fef3f2" stroke="#b42318"/>
+<text x="196" y="204" font-size="10" fill="#7a271a">D2: Sem padrão de canal:</text>
+<text x="196" y="216" font-size="10" fill="#7a271a">presencial, Teams ou mensagem</text>
+<text x="196" y="228" font-size="10" fill="#7a271a">(E1-5, E2-5)</text>
+<rect x="360" y="420" width="190" height="44" fill="#fef3f2" stroke="#b42318"/>
+<text x="366" y="434" font-size="10" fill="#7a271a">D7: Feedback vago, sem clareza do</text>
+<text x="366" y="446" font-size="10" fill="#7a271a">que mudar (E2-8, E2-10)</text>
+<rect x="640" y="205" width="190" height="44" fill="#fef3f2" stroke="#b42318"/>
+<text x="646" y="219" font-size="10" fill="#7a271a">D3: Sem registro: muita coisa</text>
+<text x="646" y="231" font-size="10" fill="#7a271a">fica só na memória (E1-6, E2-9)</text>
+<rect x="780" y="420" width="190" height="44" fill="#fef3f2" stroke="#b42318"/>
+<text x="786" y="434" font-size="10" fill="#7a271a">D4: Sem histórico único para</text>
+<text x="786" y="446" font-size="10" fill="#7a271a">consultar (E1-8, E2-6)</text>
+<rect x="1040" y="420" width="190" height="44" fill="#fef3f2" stroke="#b42318"/>
+<text x="1046" y="434" font-size="10" fill="#7a271a">D6: Sem retorno para saber se</text>
+<text x="1046" y="446" font-size="10" fill="#7a271a">melhorou (E2-7, E2-8)</text>
+<rect x="1270" y="215" width="190" height="44" fill="#fef3f2" stroke="#b42318"/>
+<text x="1276" y="229" font-size="10" fill="#7a271a">D5: Esquecer de retomar o</text>
+<text x="1276" y="241" font-size="10" fill="#7a271a">combinado (E1-7, E1-10, E2-9)</text>
+</svg>
